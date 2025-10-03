@@ -1,5 +1,5 @@
 from tkinter import *
-from .characters.character import CHARACTERS
+from .characters.character import CharacterNames, CHARACTERS
 from .const import PROJECT_NAME
 import winsound
 from time import sleep
@@ -42,8 +42,8 @@ class Battle:
             time += 0.1
 
     def fight(self):
-        self.player_one = self.create_fighter(False, "deidara", self.PLAYER_ONE_POSITION)
-        self.player_two = self.create_fighter(True, "kakashi", self.PLAYER_TWO_POSITION)
+        self.player_one = self.create_fighter(False, CharacterNames.DEIDARA, self.PLAYER_ONE_POSITION)
+        self.player_two = self.create_fighter(True, CharacterNames.KAKASHI, self.PLAYER_TWO_POSITION)
         self.player_one.set_opponent(self.player_two)
         self.player_two.set_opponent(self.player_one)
         post_end_timer = 0
