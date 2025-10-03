@@ -1,14 +1,16 @@
 from PIL import Image
 from PIL import ImageTk
 import os
-from status import StatusBar
+from .status import StatusBar
 import time
 
 
-# 🍝
+# 🍝 
+# make abstract base class
+# move consts
 class Fighter:
     # FOLDER CONSTANT
-    SPRITE_FOLDER = 'sprites'
+    SPRITE_FOLDER = 'life-is-good\sprites'
 
     # MOVEMENT & COLLISION CONSTANTS
     NEXT_TO_THRESHOLD = 40

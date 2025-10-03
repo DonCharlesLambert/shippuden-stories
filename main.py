@@ -1,6 +1,5 @@
 from tkinter import *
-from player import Fighter
-from bot import Bot
+from .characters.character import CHARACTERS
 import winsound
 from time import sleep
 from PIL import Image
@@ -25,7 +24,7 @@ class Battle:
         self.canvas.pack()
         self.canvas.focus_set()
 
-        winsound.PlaySound(r'music\LifeIsGood.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
+        winsound.PlaySound(r'life-is-good\music\LifeIsGood.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
         self.game_window.after(0, self.game)
 
     def game(self):
@@ -42,8 +41,8 @@ class Battle:
             time += 0.1
 
     def fight(self):
-        self.player_one = self.create_kisame(False, self.PLAYER_ONE_POSITION)
-        self.player_two = self.create_deidara(True, self.PLAYER_TWO_POSITION)
+        self.player_one = self.create_fighter(False, "deidara", self.PLAYER_ONE_POSITION)
+        self.player_two = self.create_fighter(True, "kakashi", self.PLAYER_TWO_POSITION)
         self.player_one.set_opponent(self.player_two)
         self.player_two.set_opponent(self.player_one)
         post_end_timer = 0
@@ -56,7 +55,7 @@ class Battle:
                 post_end_timer += 0.1
 
     def set_background(self):
-        img = Image.open(r'sprites\misc\rocks.png')
+        img = Image.open(r'life-is-good\sprites\misc\rocks.png')
         img = img.resize((self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight()), Image.Resampling.LANCZOS)
         bg_image = ImageTk.PhotoImage(img)
 
@@ -107,61 +106,14 @@ class Battle:
         direction = self.RIGHT
         if position == self.PLAYER_TWO_POSITION:
             direction = "left"
-
-        if ai:
-            fighter = Bot(name, direction, self.canvas, position)
-        else:
-            fighter = Fighter(name, direction, self.canvas, position)
-        return fighter
-
-    def create_deidara(self, ai, position):
-        fighter = self.create_fighter(ai, "deidara", position)
-        return fighter
-
-    def create_kakashi(self, ai, position):
-        fighter = self.create_fighter(ai, "kakashi", position)
-        fighter.set_animation_sprites("stance", list(range(0, 6)))
-        fighter.set_animation_sprites("run", list(range(6, 12)))
-        fighter.set_animation_sprites("damage", list(range(12, 14)))
-        fighter.set_animation_sprites("fall", list(range(12, 18)))
-        fighter.set_animation_sprites("attack", list(range(18, 31)))
-        fighter.set_animation_sprites("jump", [31, 31, 32, 32, 33, 33, 34, 34, 35, 35])
-        return fighter
-
-    def create_kisame(self, ai, position):
-        fighter = self.create_fighter(ai, "kisame", position)
-        fighter.set_animation_sprites("stance", list(range(0, 4)))
-        fighter.set_animation_sprites("run", list(range(4, 9)))
-        fighter.set_animation_sprites("damage", list(range(9, 11)))
-        fighter.set_animation_sprites("fall", list(range(9, 15)))
-        fighter.set_animation_sprites("attack", list(range(15, 28)))
-        fighter.set_animation_sprites("jump", [28, 28, 29, 29, 30, 30, 31, 31, 32, 32])
-        return fighter
-
-    def create_sasori(self, ai, position):
-        fighter = self.create_fighter(ai, "sasori", position)
-        fighter.set_animation_sprites("stance", list(range(0, 6)))
-        fighter.set_animation_sprites("run", list(range(6, 12)))
-        fighter.set_animation_sprites("damage", list(range(12, 14)))
-        fighter.set_animation_sprites("fall", list(range(12, 18)))
-        fighter.set_animation_sprites("attack", list(range(18, 40)))
-        fighter.set_animation_sprites("jump", [40, 40, 41, 41, 42, 42, 43, 43, 44])
-        return fighter
-
-    def create_itachi(self, ai, position):
-        fighter = self.create_fighter(ai, "itachi", position)
-        fighter.set_animation_sprites("stance", list(range(0, 4)))
-        fighter.set_animation_sprites("run", list(range(4, 10)))
-        fighter.set_animation_sprites("damage", list(range(10, 12)))
-        fighter.set_animation_sprites("fall", list(range(10, 16)))
-        fighter.set_animation_sprites("attack", list(range(16, 29)))
-        fighter.set_animation_sprites("jump", [29, 29, 30, 30, 31, 31, 32, 32, 33, 33])
+        Character = CHARACTERS[name]
+        fighter = Character(direction, self.canvas, position, is_bot=ai)
         return fighter
 
 
 root = Tk()
 root.title("Naruto: Shippuden Stories")
-img = PhotoImage(file=r"sprites\Future\smile.png")
+img = PhotoImage(file=r"life-is-good\sprites\Future\smile.png")
 root.iconphoto(False, img)
 Battle(root)
 root.mainloop()

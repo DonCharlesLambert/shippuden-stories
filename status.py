@@ -48,7 +48,7 @@ class StatusBar:
         self.redraw_chakra()
 
     def update_health(self):
-        img = Image.open(os.path.join('sprites', 'misc', 'health bars', "100.png"))
+        img = Image.open(os.path.join('life-is-good', 'sprites', 'misc', 'health bars', "100.png"))
         img = self.scale_health_bar_img(img)
         img = self.scale_img(img, self.fighter.health / self.fighter.MAX_HEALTH)
         self.health_bar = ImageTk.PhotoImage(img)
@@ -61,26 +61,26 @@ class StatusBar:
         self.canvas.itemconfig(self.canvas_chakra_bar, image=self.chakra_bar)
 
     def get_mugshot(self):
-        img = Image.open(os.path.join('sprites', self.fighter.name, "mug.png"))
+        img = Image.open(os.path.join('life-is-good', 'sprites', self.fighter.name, "mug.png"))
         img = self.scale_mugshot(img)
         mugshot = ImageTk.PhotoImage(img)
         return mugshot
 
 
     def get_outline(self):
-        img = Image.open(os.path.join('sprites', 'misc', 'health bars', "outline.png"))
+        img = Image.open(os.path.join('life-is-good', 'sprites', 'misc', 'health bars', "outline.png"))
         img = self.scale_health_bar_img(img)
         health_bar = ImageTk.PhotoImage(img)
         return health_bar
 
     def get_chakra_bar(self):
-        img = Image.open(os.path.join('sprites', 'misc', 'health bars', "100c.png"))
+        img = Image.open(os.path.join('life-is-good', 'sprites', 'misc', 'health bars', "100c.png"))
         img = self.scale_health_bar_img(img)
         health_bar = ImageTk.PhotoImage(img)
         return health_bar
 
     def get_health_bar(self):
-        img = Image.open(os.path.join('sprites', 'misc', 'health bars', "100.png"))
+        img = Image.open(os.path.join('life-is-good', 'sprites', 'misc', 'health bars', "100.png"))
         img = self.scale_health_bar_img(img)
         health_bar = ImageTk.PhotoImage(img)
         return health_bar

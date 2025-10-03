@@ -1,5 +1,5 @@
 import random
-from player import Fighter
+from .player import Fighter
 
 
 class Bot(Fighter):
@@ -9,7 +9,8 @@ class Bot(Fighter):
 
     def animate(self):
         super().animate()
-        self.decide_movement()
+        if self.is_bot:
+            self.decide_movement()
 
     def decide_movement(self):
         if self.action_is(self.DAMAGE) or self.action_is(self.FALL):
