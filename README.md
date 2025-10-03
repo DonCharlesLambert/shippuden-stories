@@ -1,4 +1,11 @@
 
+# ⚠️ WARNING
+
+This repository is currently undergoing a major overhaul.  
+During this period, features may be broken and documentation may lag behind the code. 
+
+
+
 # Life Is Good
 > _It's cool, man, got red bottoms on  
 Life is good, you know what I mean? Like_
@@ -16,16 +23,16 @@ Life Is Good is a Naruto fighting game made using the tkinter library for Python
 1. Open Terminal  
 
 2. Clone the Repo  
-`C:\> git clone https://github.com/DonCharlesLambert/Life-Is-Good`  
+`C:\> git clone https://github.com/DonCharlesLambert/life-is-good`  
 
 3. Enter the Repo  
-`C:\> cd LifeIsGood`  
+`C:\> cd life-is-good`  
 
 4. Install the required libraries  
-`C:\LifeIsGood> pip install -r requirements.txt`  
+`C:\life-is-good> pip install -r requirements.txt`  
 
 5. Run the Game  
-`C:\LifeIsGood> python LifeIsGood.py`  
+`C:\> python -m life-is-good.main`  
 
 <img src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss.png?raw=true" style="margin:auto" width="60%" alt="Screenshot From the Game"/>
 
@@ -42,8 +49,8 @@ Life Is Good is a Naruto fighting game made using the tkinter library for Python
  - [x] Basic character fight mechanism
  - [x] Basic character jump mechanism
  - [x] Health bar reflecting health
- - [ ] End fight screen
  - [ ] Character select screen
+ - [ ] End fight screen
  - [ ] Main Menu
  - [ ] Story mode
 
