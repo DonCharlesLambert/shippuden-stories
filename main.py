@@ -1,5 +1,6 @@
 from tkinter import *
 from .characters.character import CHARACTERS
+from .const import PROJECT_NAME
 import winsound
 from time import sleep
 from PIL import Image
@@ -24,7 +25,7 @@ class Battle:
         self.canvas.pack()
         self.canvas.focus_set()
 
-        winsound.PlaySound(r'life-is-good\music\LifeIsGood.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
+        winsound.PlaySound(rf'{PROJECT_NAME}\music\LifeIsGood.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
         self.game_window.after(0, self.game)
 
     def game(self):
@@ -55,7 +56,7 @@ class Battle:
                 post_end_timer += 0.1
 
     def set_background(self):
-        img = Image.open(r'life-is-good\sprites\misc\rocks.png')
+        img = Image.open(rf'{PROJECT_NAME}\sprites\misc\rocks.png')
         img = img.resize((self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight()), Image.Resampling.LANCZOS)
         bg_image = ImageTk.PhotoImage(img)
 
@@ -113,7 +114,7 @@ class Battle:
 
 root = Tk()
 root.title("Naruto: Shippuden Stories")
-img = PhotoImage(file=r"life-is-good\sprites\Future\smile.png")
+img = PhotoImage(file=rf"{PROJECT_NAME}\sprites\Future\smile.png")
 root.iconphoto(False, img)
 Battle(root)
 root.mainloop()

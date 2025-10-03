@@ -1,3 +1,4 @@
+from .const import PROJECT_NAME
 from PIL import Image, ImageOps
 from PIL import ImageTk
 import os
