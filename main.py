@@ -20,14 +20,8 @@ class Battle:
     def __init__(self, game_window):
         self.game_window = game_window
         self.canvas = Canvas(game_window, width=WIDTH, height=HEIGHT)
-
         self.canvas.bind("<KeyPress>", self.key_press)
         self.canvas.bind("<KeyRelease>", self.key_release)
-
-        self.set_background()
-        self.player_one = self.create_kisame(False, self.PLAYER_ONE_POSITION)
-        self.player_two = self.create_deidara(True, self.PLAYER_TWO_POSITION)
-
         self.canvas.pack()
         self.canvas.focus_set()
 
@@ -35,13 +29,31 @@ class Battle:
         self.game_window.after(0, self.game)
 
     def game(self):
+        self.set_background()
+        self.character_select()
+        self.fight()
+
+    def character_select(self):
+        # add character select
+        time = 0
+        while time < 1:
+            self.canvas.update()
+            sleep(0.1)
+            time += 0.1
+
+    def fight(self):
+        self.player_one = self.create_kisame(False, self.PLAYER_ONE_POSITION)
+        self.player_two = self.create_deidara(True, self.PLAYER_TWO_POSITION)
         self.player_one.set_opponent(self.player_two)
         self.player_two.set_opponent(self.player_one)
-        while True:
+        post_end_timer = 0
+        while post_end_timer < 5:
             self.player_one.animate()
             self.player_two.animate()
             self.canvas.update()
             sleep(0.1)
+            if self.player_one.dead or self.player_two.dead:
+                post_end_timer += 0.1
 
     def set_background(self):
         img = Image.open(r'sprites\misc\rocks.png')
@@ -148,7 +160,7 @@ class Battle:
 
 
 root = Tk()
-root.title("Life Is Good")
+root.title("Naruto: Shippuden Stories")
 img = PhotoImage(file=r"sprites\Future\smile.png")
 root.iconphoto(False, img)
 Battle(root)
