@@ -1,12 +1,21 @@
 from .deidara import Deidara
 from .kakashi import Kakashi
+from .sasori import Sasori
+from .itachi import Itachi
+from .kisame import Kisame
 from enum import Enum
 
 class CharacterNames(Enum):
     DEIDARA = "deidara"
     KAKASHI = "kakashi"
+    ITACHI = "itachi"
+    KISAME = "kisame"
+    SASORI = "sasori"
 
 CHARACTERS = {
     CharacterNames.DEIDARA: Deidara,
-    CharacterNames.KAKASHI: Kakashi
+    CharacterNames.KAKASHI: Kakashi,
+    CharacterNames.ITACHI: Itachi,
+    CharacterNames.KISAME: Kisame,
+    CharacterNames.SASORI: Sasori
 }

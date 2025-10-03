@@ -42,8 +42,8 @@ class Battle:
             time += 0.1
 
     def fight(self):
-        self.player_one = self.create_fighter(False, CharacterNames.DEIDARA, self.PLAYER_ONE_POSITION)
-        self.player_two = self.create_fighter(True, CharacterNames.KAKASHI, self.PLAYER_TWO_POSITION)
+        self.player_one = self.create_fighter(False, CharacterNames.SASORI, self.PLAYER_ONE_POSITION)
+        self.player_two = self.create_fighter(True, CharacterNames.ITACHI, self.PLAYER_TWO_POSITION)
         self.player_one.set_opponent(self.player_two)
         self.player_two.set_opponent(self.player_one)
         post_end_timer = 0
@@ -118,5 +118,3 @@ img = PhotoImage(file=rf"{PROJECT_NAME}\sprites\Future\smile.png")
 root.iconphoto(False, img)
 Battle(root)
 root.mainloop()
-input()
-
