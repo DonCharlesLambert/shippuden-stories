@@ -1,6 +1,6 @@
 from tkinter import *
-from Player import Fighter
-from Bot import Bot
+from player import Fighter
+from bot import Bot
 import winsound
 from time import sleep
 from PIL import Image
@@ -149,7 +149,7 @@ class Battle:
 
 root = Tk()
 root.title("Life Is Good")
-img = PhotoImage(file="sprites\Future\smile.png")
+img = PhotoImage(file=r"sprites\Future\smile.png")
 root.iconphoto(False, img)
 Battle(root)
 root.mainloop()

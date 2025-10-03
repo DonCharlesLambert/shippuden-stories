@@ -1,7 +1,7 @@
 from PIL import Image
 from PIL import ImageTk
 import os
-from Status import StatusBar
+from status import StatusBar
 import time
 
 
