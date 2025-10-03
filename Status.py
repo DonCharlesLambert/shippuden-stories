@@ -88,7 +88,7 @@ class StatusBar:
     def scale_health_bar_img(self, img):
         width = int(self.CANVAS_WIDTH * 0.23)
         height = int(width * (img.size[1] / img.size[0]))
-        img = img.resize((width, height), Image.ANTIALIAS)
+        img = img.resize((width, height), Image.Resampling.LANCZOS)
         if self.side == "left":
             img = ImageOps.mirror(img)
         return img
@@ -96,7 +96,7 @@ class StatusBar:
     def scale_mugshot(self, img):
         height = int(self.CANVAS_WIDTH * 0.2)
         width = int(height * (img.size[0] / img.size[1]))
-        img = img.resize((width, height), Image.ANTIALIAS)
+        img = img.resize((width, height), Image.Resampling.LANCZOS)
         return img
 
     def scale_img(self, img, scale):
@@ -104,5 +104,5 @@ class StatusBar:
         if width < 1:
             width = 1
         height = img.size[1]
-        img = img.resize((width, height), Image.ANTIALIAS)
+        img = img.resize((width, height), Image.Resampling.LANCZOS)
         return img

@@ -45,7 +45,7 @@ class Battle:
 
     def set_background(self):
         img = Image.open(r'sprites\misc\rocks.png')
-        img = img.resize((self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight()), Image.ANTIALIAS)
+        img = img.resize((self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight()), Image.Resampling.LANCZOS)
         bg_image = ImageTk.PhotoImage(img)
 
         self.canvas.create_image(0, 0, image=bg_image, anchor="nw")
