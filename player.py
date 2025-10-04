@@ -50,7 +50,6 @@ class Fighter:
         self.CANVAS_HEIGHT = self.canvas.winfo_reqheight()
 
         self.animation_no = 0
-        self.direction = self.RIGHT
         self.action = self.STANCE
 
         self.speed = 0.02

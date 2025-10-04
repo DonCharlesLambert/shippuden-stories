@@ -54,7 +54,6 @@ class Battle:
         
         mock_player_one.set_opponent(mock_player_two)
         mock_player_two.set_opponent(mock_player_one)
-        mock_player_two.switch_direction()
 
         time = 0
         while self.state == States.SELECT:
@@ -71,7 +70,6 @@ class Battle:
                 mock_player_two = self.create_fighter(False, names[self.selected_characters[1]], self.PLAYER_TWO_POSITION, character_select=True)
                 mock_player_two.set_opponent(mock_player_one)
                 mock_player_one.set_opponent(mock_player_two)
-                mock_player_two.switch_direction()
             sleep(0.1)
             time += 0.1
 
