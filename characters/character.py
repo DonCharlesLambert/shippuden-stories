@@ -5,10 +5,12 @@ from .itachi import Itachi
 from .kisame import Kisame
 from .gaara import Gaara
 from .naruto import Naruto
+from .sakura import Sakura
 from enum import Enum
 
 class CharacterNames(Enum):
     NARUTO = "naruto"
+    SAKURA = "sakura"
     KAKASHI = "kakashi"
     GAARA = "gaara"
     ITACHI = "itachi"
@@ -18,6 +20,7 @@ class CharacterNames(Enum):
 
 CHARACTERS = {
     CharacterNames.NARUTO: Naruto,
+    CharacterNames.SAKURA: Sakura,
     CharacterNames.KAKASHI: Kakashi,
     CharacterNames.GAARA: Gaara,
     CharacterNames.ITACHI: Itachi,
