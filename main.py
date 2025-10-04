@@ -34,7 +34,7 @@ class Battle:
 
         self.selected_characters = [0, 1]
 
-        winsound.PlaySound(rf'{PROJECT_NAME}\music\LifeIsGood.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
+        # winsound.PlaySound(rf'{PROJECT_NAME}\music\LifeIsGood.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
         self.game_window.after(0, self.game)
 
     def game(self):
@@ -136,9 +136,9 @@ class Battle:
                     self.player_one.jump()
         if self.state == States.SELECT:
             if e.char == "s":
-                self.selected_characters[0] = (self.selected_characters[0] - 1) % len(CharacterNames)
-            if e.char == "w":
                 self.selected_characters[0] = (self.selected_characters[0] + 1) % len(CharacterNames)
+            if e.char == "w":
+                self.selected_characters[0] = (self.selected_characters[0] - 1) % len(CharacterNames)
             if e.char == " ":
                 self.state = "help me up"
 
@@ -155,9 +155,9 @@ class Battle:
                     self.player_two.jump()
         if self.state == States.SELECT:
             if e.char == "k":
-                self.selected_characters[1] = (self.selected_characters[1] - 1) % len(CharacterNames)
-            if e.char == "i":
                 self.selected_characters[1] = (self.selected_characters[1] + 1) % len(CharacterNames)
+            if e.char == "i":
+                self.selected_characters[1] = (self.selected_characters[1] - 1) % len(CharacterNames)
 
     def player_one_controller_release(self, e):
         if not self.player_one.is_bot:
