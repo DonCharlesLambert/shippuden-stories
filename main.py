@@ -19,7 +19,7 @@ class States(Enum):
 class Battle:
     images = []
     PLAYER_ONE_POSITION = (100, 370)
-    PLAYER_TWO_POSITION = (400, 370)
+    PLAYER_TWO_POSITION = (525, 370)
     LEFT  = "left"
     RIGHT = "right"
     state = States.TITLE
@@ -109,7 +109,7 @@ class Battle:
         select_image = ImageTk.PhotoImage(img)
         self.images.append(select_image)
 
-        x = 50 + (150 * (position // 3))
+        x = 90 + (150 * (position // 3))
         y = (position % 3) * 50 + 20
         return self.canvas.create_image(x, y, image=select_image, anchor="nw")
 
