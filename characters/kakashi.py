@@ -1,8 +1,8 @@
 from ..bot import Bot
 
 class Kakashi(Bot):
-    def __init__(self, initial_direction, sprite_canvas, pos, is_bot=False):
-        super(Kakashi, self).__init__("kakashi", initial_direction, sprite_canvas, pos)
+    def __init__(self, initial_direction, sprite_canvas, pos, is_bot=False, hide_status_bar = False):
+        super(Kakashi, self).__init__("kakashi", initial_direction, sprite_canvas, pos, hide_status_bar)
         self.is_bot = is_bot
 
         

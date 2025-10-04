@@ -6,7 +6,7 @@ import time
 
 class StatusBar:
 
-    def __init__(self, player, side):
+    def __init__(self, player, side, hidden = False):
         self.fighter = player
         self.side = side
 
@@ -24,7 +24,8 @@ class StatusBar:
         self.canvas_chakra_bar = None
         self.canvas_chakra_outline = None
 
-        self.draw_self()
+        if not hidden:
+            self.draw_self()
 
     def draw_self(self):
         if self.side == "right":
@@ -40,7 +41,7 @@ class StatusBar:
 
         self.canvas_chakra_outline = self.canvas.create_image(chakra_bar_pos, image=self.outline, anchor=anchor)
         self.canvas_chakra_bar = self.canvas.create_image(chakra_bar_pos, image=self.chakra_bar, anchor=anchor)
-        self.canvas.create_image(image_pos, image=self.mugshot)
+        self.canvas_mugshot = self.canvas.create_image(image_pos, image=self.mugshot)
         self.canvas_health_outline = self.canvas.create_image(health_bar_pos, image=self.outline, anchor=anchor)
         self.canvas_health_bar = self.canvas.create_image(health_bar_pos, image=self.health_bar, anchor=anchor)
 
@@ -107,3 +108,12 @@ class StatusBar:
         height = img.size[1]
         img = img.resize((width, height), Image.Resampling.LANCZOS)
         return img
+    
+    def destroy(self):
+        self.canvas.delete(self.chakra_bar)
+        self.canvas.delete(self.canvas_mugshot)
+        self.canvas.delete(self.canvas_health_bar)
+        self.canvas.delete(self.canvas_health_outline)
+        self.canvas.delete(self.canvas_chakra_bar)
+        self.canvas.delete(self.canvas_chakra_outline)
+

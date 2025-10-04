@@ -1,8 +1,8 @@
 from ..bot import Bot
 
 class Sasori(Bot):
-    def __init__(self, initial_direction, sprite_canvas, pos, is_bot=False):
-        super(Sasori, self).__init__("sasori", initial_direction, sprite_canvas, pos)
+    def __init__(self, initial_direction, sprite_canvas, pos, is_bot=False, hide_status_bar = False):
+        super(Sasori, self).__init__("sasori", initial_direction, sprite_canvas, pos, hide_status_bar)
         self.is_bot = is_bot
 
         self.set_animation_sprites("stance", list(range(0, 6)))

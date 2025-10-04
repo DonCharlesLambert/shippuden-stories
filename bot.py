@@ -3,8 +3,8 @@ from .player import Fighter
 
 
 class Bot(Fighter):
-    def __init__(self, name, initial_direction, sprite_canvas, pos):
-        super(Bot, self).__init__(name, initial_direction, sprite_canvas, pos)
+    def __init__(self, name, initial_direction, sprite_canvas, pos, hide_status_bar = False):
+        super(Bot, self).__init__(name, initial_direction, sprite_canvas, pos, hide_status_bar)
         self.is_bot = True
 
     def animate(self):

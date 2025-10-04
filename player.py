@@ -38,13 +38,13 @@ class Fighter:
     SWITCH = "switch"
     REMAIN = ""
 
-    def __init__(self, name, initial_direction, sprite_canvas, pos):
+    def __init__(self, name, initial_direction, sprite_canvas, pos, hide_status_bar = False):
         self.name = name
         self.canvas = sprite_canvas
         self.direction = initial_direction
         self.opponent = None
         self.is_bot = False
-        self.status_bar = StatusBar(self, initial_direction)
+        self.status_bar = StatusBar(self, initial_direction, hidden = hide_status_bar)
 
         self.CANVAS_WIDTH = self.canvas.winfo_reqwidth()
         self.CANVAS_HEIGHT = self.canvas.winfo_reqheight()
@@ -332,3 +332,7 @@ class Fighter:
                 self.canvas.move(self.sprite_item, self.CANVAS_WIDTH * -self.speed * 2, 0)
             else:
                 self.canvas.move(self.sprite_item, self.CANVAS_WIDTH * self.speed * 2, 0)
+
+    def destroy(self):
+        self.canvas.delete(self.sprite_item)
+        self.status_bar.destroy()

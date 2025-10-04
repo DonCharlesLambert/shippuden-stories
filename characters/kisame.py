@@ -1,8 +1,8 @@
 from ..bot import Bot
 
 class Kisame(Bot):
-    def __init__(self, initial_direction, sprite_canvas, pos, is_bot=False):
-        super(Kisame, self).__init__("kisame", initial_direction, sprite_canvas, pos)
+    def __init__(self, initial_direction, sprite_canvas, pos, is_bot=False, hide_status_bar = False):
+        super(Kisame, self).__init__("kisame", initial_direction, sprite_canvas, pos, hide_status_bar)
         self.is_bot = is_bot
 
         self.set_animation_sprites("stance", list(range(0, 4)))
