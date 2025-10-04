@@ -55,22 +55,6 @@ Life Is Good is a Naruto fighting game made using the tkinter library for Python
  - [ ] Story mode
 
 
-## Info
-So I never planned to add two-player, but I did. If you follow the code you can see how to turn it on and off programmatically until I add the menus.
-
-The first argument is whether or not the fighter is an AI or not, just change one of them to True to play against an AI, or change both to True to watch two AI play against each other.
-```python  
-self.player_one = self.create_sasori(False, self.PLAYER_ONE_POSITION)  
-self.player_two = self.create_deidara(False, self.PLAYER_TWO_POSITION)
-```
-You can also change which method is invoked in order to play as other characters:
-
-```python
-self.create_kisame(False, self.PLAYER_ONE_POSITION)
-self.create_kakashi(True, self.PLAYER_ONE_POSITION)
-self.create_itachi(True, self.PLAYER_ONE_POSITION)
-```
-
 <img src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss2.png?raw=true" style="margin:auto" width="60%" alt="An AI vs AI battle"/>
 
 ## Todo
