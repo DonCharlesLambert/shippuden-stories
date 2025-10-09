@@ -1,6 +1,5 @@
-from tkinter import *
+from tkinter import Canvas, Tk, PhotoImage
 from characters.character import CharacterNames, CHARACTERS
-from const import PROJECT_NAME
 import winsound
 from time import sleep
 from enum import Enum

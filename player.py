@@ -2,7 +2,6 @@ from PIL import Image
 from PIL import ImageTk
 import os
 from status import StatusBar
-from const import PROJECT_NAME
 import time
 
 
