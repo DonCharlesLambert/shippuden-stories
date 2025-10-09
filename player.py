@@ -1,8 +1,8 @@
 from PIL import Image
 from PIL import ImageTk
 import os
-from .status import StatusBar
-from .const import PROJECT_NAME
+from status import StatusBar
+from const import PROJECT_NAME
 import time
 
 
@@ -11,7 +11,7 @@ import time
 # move consts
 class Fighter:
     # FOLDER CONSTANT
-    SPRITE_FOLDER = rf'{PROJECT_NAME}\sprites'
+    SPRITE_FOLDER = rf'sprites'
 
     # MOVEMENT & COLLISION CONSTANTS
     NEXT_TO_THRESHOLD = 40

@@ -1,6 +1,6 @@
 from tkinter import *
-from .characters.character import CharacterNames, CHARACTERS
-from .const import PROJECT_NAME
+from characters.character import CharacterNames, CHARACTERS
+from const import PROJECT_NAME
 import winsound
 from time import sleep
 from enum import Enum
@@ -96,7 +96,7 @@ class Battle:
         self.player_two.destroy()
 
     def set_background(self):
-        img = Image.open(rf'{PROJECT_NAME}\sprites\misc\rocks.png')
+        img = Image.open(rf'sprites\misc\rocks.png')
         img = img.resize((self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight()), Image.Resampling.LANCZOS)
         bg_image = ImageTk.PhotoImage(img)
 
@@ -105,7 +105,7 @@ class Battle:
 
     
     def get_character_select(self, character_name, position=0):
-        img = Image.open(rf'{PROJECT_NAME}\sprites\select\{character_name}.png')
+        img = Image.open(rf'sprites\select\{character_name}.png')
         select_image = ImageTk.PhotoImage(img)
         self.images.append(select_image)
 
@@ -180,7 +180,7 @@ class Battle:
 
 root = Tk()
 root.title("Naruto: Shippuden Stories")
-img = PhotoImage(file=rf"{PROJECT_NAME}\sprites\Future\smile.png")
+img = PhotoImage(file=rf"sprites\Future\smile.png")
 root.iconphoto(False, img)
 Battle(root)
 root.mainloop()

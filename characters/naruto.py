@@ -1,4 +1,4 @@
-from ..bot import Bot
+from bot import Bot
 
 class Naruto(Bot):
     def __init__(self, initial_direction, sprite_canvas, pos, is_bot=False, hide_status_bar = False):
