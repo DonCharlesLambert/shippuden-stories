@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install coverage coverage-badge pytest
+          pip install -r requirements.txt
 
       - name: Run tests with coverage
         run: |
