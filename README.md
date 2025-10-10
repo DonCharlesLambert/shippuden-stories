@@ -1,63 +1,80 @@
 
-# ⚠️ WARNING
+  
+  
+<p align = "center">
+<img src="https://github.com/DonCharlesLambert/life-is-good/blob/master/sprites/misc/title.png?raw=true"  style="margin:auto" align="centre"  width="50%"  alt="Shippuden Stories title image"/>
+ </p>
 
-This repository is currently undergoing a major overhaul.  
-During this period, features may be broken and documentation may lag behind the code. 
+<p align = "center" style="margin:0">
+<img src="https://raw.githubusercontent.com/DonCharlesLambert/life-is-good/1c25852ae45f3a5dbd0f78cb8a795ae7894660d4/.github/badges/coverage.svg"  height="20"  alt="Current unit test coverage"/>
+<img src = "https://img.shields.io/badge/created-feb_2020-blue" height=20 />
+<img src = "https://img.shields.io/github/contributors/DonCharlesLambert/life-is-good" />
+ </p>
 
+# Shippuden Stories
 
+> _Life is good, you know what I mean? Like_
 
-# Life Is Good
-> _It's cool, man, got red bottoms on  
-Life is good, you know what I mean? Like_
+Shippuden Stories is a Naruto fighting game made using the tkinter library for Python. Reminiscent of the browser flash games of yesteryear, it is a simple beat-em-up that features key characters from the series such as Naruto, Kakashi & Itachi.
 
-Let the 8-bit rendition of Future's "Life Is Good" take your mind back to a simpler time. Those year 8 days, playing Naruto MUGEN after school on a Tuesday with Jamal. 
+  
 
-Life was good, but life is better. 
-
-Life Is Good is a Naruto fighting game made using the tkinter library for Python. The project is a hobby for when I want to procrastinate.
-
-<img src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss3.gif?raw=true" style="margin:auto" width="60%" alt="Gif showing gameplay"/>
-
+<p align = "center">
+<img  src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss3.gif?raw=true"  style="margin:auto"  width="60%"  alt="Gif showing gameplay"/>
+ </p>
+  
+  The game is played using the WASD keys, these keys are also used in character selection. The game is still a work in progress with projectiles, a main menu and a light story mode still to be added. If you find this interesting please leave a star or if you're really motivated make a contribution!
+  
 
 ## Get it Running
-1. Open Terminal  
 
-2. Clone the Repo  
-`C:\> git clone https://github.com/DonCharlesLambert/life-is-good`  
+1. Open Terminal
 
-3. Enter the Repo  
-`C:\> cd life-is-good`  
+  
 
-4. Install the required libraries  
-`C:\life-is-good> pip install -r requirements.txt`  
+2. Clone the Repo
 
-5. Run the Game  
-`C:\> python -m life-is-good.main`  
+`C:\> git clone https://github.com/DonCharlesLambert/life-is-good`
 
-<img src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss.png?raw=true" style="margin:auto" width="60%" alt="Screenshot From the Game"/>
+  
 
-## Controls
-|w |a |d | space |
-|--|--|--|--|
-|jump| left | right | attack |
+3. Enter the Repo
 
+`C:\> cd life-is-good`
+
+  
+
+4. Install the required libraries
+
+`C:\life-is-good> pip install -r requirements.txt`
+
+  
+
+5. Run the Game
+
+`C:\life-is-good> python -m main`
+
+  
+
+<img  src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss.png?raw=true"  style="margin:auto"  width="60%"  alt="Screenshot From the Game"/>
+
+  
+
+
+  
+  
 
 ## Progress
 
- - [x] Basic character animation
- - [x] Music
- - [x] Basic character fight mechanism
- - [x] Basic character jump mechanism
- - [x] Health bar reflecting health
- - [ ] Character select screen
- - [ ] End fight screen
- - [ ] Main Menu
- - [ ] Story mode
+- [ ] End fight screen
 
+- [ ] Main Menu
 
-<img src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss2.png?raw=true" style="margin:auto" width="60%" alt="An AI vs AI battle"/>
+- [ ] Story mode
 
-## Todo
-1) Projectiles
-2) Menu
-3) Specials (How to go about this?)...
+  
+  
+
+<img  src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss2.png?raw=true"  style="margin:auto"  width="60%"  alt="An AI vs AI battle"/>
+
+ 
