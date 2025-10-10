@@ -37,10 +37,20 @@ class Battle:
         self.game_window.after(0, self.game)
 
     def game(self):
+        # self.title_screen()
         self.set_background()
         while True:
             character_one, character_two = self.character_select()
             self.fight(character_one, character_two)
+
+    def title_screen(self):
+        self.state = States.TITLE
+        bg_image = self.set_background(filename="training")
+        while self.state == States.TITLE:
+            self.canvas.update()
+            sleep(0.1)
+        self.canvas.delete(bg_image)
+
 
     def character_select(self):
         self.state = States.SELECT
@@ -48,6 +58,9 @@ class Battle:
         select_items = []
         for i, character in enumerate(names):
             select_items.append(self.get_character_select(character.value, i))
+        
+        player_one_icon = self.get_character_select("1p", self.selected_characters[0])
+        player_two_icon = self.get_character_select("2p", self.selected_characters[1], offset=100)
         mock_player_one = self.create_fighter(False, names[self.selected_characters[0]], self.PLAYER_ONE_POSITION, character_select=True)
         mock_player_two = self.create_fighter(False, names[self.selected_characters[1]], self.PLAYER_TWO_POSITION, character_select=True)
         
@@ -64,15 +77,22 @@ class Battle:
                 mock_player_one = self.create_fighter(False, names[self.selected_characters[0]], self.PLAYER_ONE_POSITION, character_select=True)
                 mock_player_one.set_opponent(mock_player_two)
                 mock_player_two.set_opponent(mock_player_one)
+                self.canvas.delete(player_one_icon)
+                player_one_icon = self.get_character_select("1p", self.selected_characters[0])
+
             if mock_player_two.name != names[self.selected_characters[1]].value:
                 mock_player_two.destroy()
                 mock_player_two = self.create_fighter(False, names[self.selected_characters[1]], self.PLAYER_TWO_POSITION, character_select=True)
                 mock_player_two.set_opponent(mock_player_one)
                 mock_player_one.set_opponent(mock_player_two)
+                self.canvas.delete(player_two_icon)
+                player_two_icon = self.get_character_select("2p", self.selected_characters[1], offset=100)
             sleep(0.1)
             time += 0.1
 
         [self.canvas.delete(item) for item in select_items]
+        self.canvas.delete(player_one_icon)
+        self.canvas.delete(player_two_icon)
         mock_player_one.destroy()
         mock_player_two.destroy()
         return names[self.selected_characters[0]], names[self.selected_characters[1]]
@@ -94,21 +114,23 @@ class Battle:
         self.player_one.destroy()
         self.player_two.destroy()
 
-    def set_background(self):
-        img = Image.open(rf'sprites\misc\rocks.png')
+
+    def set_background(self, filename="rocks"):
+        img = Image.open(rf'sprites\misc\{filename}.png')
         img = img.resize((self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight()), Image.Resampling.LANCZOS)
         bg_image = ImageTk.PhotoImage(img)
 
-        self.canvas.create_image(0, 0, image=bg_image, anchor="nw")
+        canvas_item = self.canvas.create_image(0, 0, image=bg_image, anchor="nw")
         self.images.append(bg_image)
+        return canvas_item
 
-    
-    def get_character_select(self, character_name, position=0):
+
+    def get_character_select(self, character_name, position=0, offset=None):
         img = Image.open(rf'sprites\select\{character_name}.png')
         select_image = ImageTk.PhotoImage(img)
         self.images.append(select_image)
 
-        x = 90 + (150 * (position // 3))
+        x = 90 + (150 * (position // 3)) + (0 if not offset else offset )
         y = (position % 3) * 50 + 20
         return self.canvas.create_image(x, y, image=select_image, anchor="nw")
 
@@ -123,6 +145,9 @@ class Battle:
             self.player_two_controller_release(e)
 
     def player_one_controller_press(self, e):
+        if self.state == States.TITLE:
+            if e.char == " ":
+                self.state = "help me up"
         if self.state == States.FIGHT:
             if not self.player_one.is_bot:
                 if e.char == "d":
@@ -142,6 +167,7 @@ class Battle:
                 self.state = "help me up"
 
     def player_two_controller_press(self, e):
+        # TWO PLAYER IS NOT ACCESSIBLE DISABLED FOR NOW
         if self.state == States.FIGHT:
             if not self.player_two.is_bot:
                 if e.char == "l":
@@ -153,9 +179,9 @@ class Battle:
                 if e.char == "i":
                     self.player_two.jump()
         if self.state == States.SELECT:
-            if e.char == "k":
+            if e.char == "d":
                 self.selected_characters[1] = (self.selected_characters[1] + 1) % len(CharacterNames)
-            if e.char == "i":
+            if e.char == "a":
                 self.selected_characters[1] = (self.selected_characters[1] - 1) % len(CharacterNames)
 
     def player_one_controller_release(self, e):
