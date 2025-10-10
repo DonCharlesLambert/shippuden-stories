@@ -2,7 +2,7 @@
   
   
 <p align = "center">
-<img src="https://github.com/DonCharlesLambert/life-is-good/blob/master/sprites/misc/title.png?raw=true"  style="margin:auto" align="centre"  width="50%"  alt="Shippuden Stories title image"/>
+<img src="https://github.com/DonCharlesLambert/life-is-good/blob/master/sprites/misc/title.png?raw=true"  style="margin:auto" align="centre"  width="35%"  alt="Shippuden Stories title image"/>
  </p>
 
 <p align = "center" style="margin:0">
@@ -11,11 +11,9 @@
 <img src = "https://img.shields.io/github/contributors/DonCharlesLambert/life-is-good" />
  </p>
 
-# Shippuden Stories
-
 > _Life is good, you know what I mean? Like_
 
-Shippuden Stories is a Naruto fighting game made using the tkinter library for Python. Reminiscent of the browser flash games of yesteryear, it is a simple beat-em-up that features key characters from the series such as Naruto, Kakashi & Itachi.
+Shippuden Stories (formerly Life Is Good) is a Naruto fighting game made using the tkinter library for Python. Reminiscent of the browser flash games of yesteryear, it is a simple beat-em-up that features key characters from the series such as Naruto, Kakashi & Itachi.
 
   
 
@@ -28,37 +26,16 @@ Shippuden Stories is a Naruto fighting game made using the tkinter library for P
 
 ## Get it Running
 
-1. Open Terminal
+|  |  |
+|--|--|
+| Clone the Repo | `C:\> git clone https://github.com/DonCharlesLambert/life-is-good` |
+| Enter the Repo | `C:\> cd life-is-good` |
+| Install the required libraries | `C:\life-is-good> pip install -r requirements.txt` |
+| Run the Game | `C:\life-is-good> python -m main` |
 
-  
-
-2. Clone the Repo
-
-`C:\> git clone https://github.com/DonCharlesLambert/life-is-good`
-
-  
-
-3. Enter the Repo
-
-`C:\> cd life-is-good`
-
-  
-
-4. Install the required libraries
-
-`C:\life-is-good> pip install -r requirements.txt`
-
-  
-
-5. Run the Game
-
-`C:\life-is-good> python -m main`
-
-  
-
-<img  src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss.png?raw=true"  style="margin:auto"  width="60%"  alt="Screenshot From the Game"/>
-
-  
+<p align = "center">
+<img  src="https://github.com/DonCharlesLambert/life-is-good/blob/master/sprites/ss4.png?raw=true"  style="margin:auto"  width="60%"  alt="Screenshot From the Game"/>
+</p>
 
 
   
@@ -72,9 +49,6 @@ Shippuden Stories is a Naruto fighting game made using the tkinter library for P
 
 - [ ] Story mode
 
-  
-  
-
+<p align = "center">
 <img  src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss2.png?raw=true"  style="margin:auto"  width="60%"  alt="An AI vs AI battle"/>
-
- 
+</p>
