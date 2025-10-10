@@ -1,5 +1,5 @@
 import random
-from player import Fighter
+from characters.player import Fighter
 
 
 class Bot(Fighter):

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 from tkinter import Canvas, Tk
-from bot import Bot
+from characters.bot import Bot
 
 
 class TestBot(unittest.TestCase):
