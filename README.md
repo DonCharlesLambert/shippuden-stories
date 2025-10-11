@@ -4,7 +4,7 @@
 
 <p align = "center" style="margin:0">
 <img src="https://raw.githubusercontent.com/DonCharlesLambert/Life-Is-Good/refs/heads/master/.github/badges/coverage.svg"  height="20" alt="Current unit test coverage"/>
-<img src = "https://img.shields.io/badge/created-feb_2020-blue" height=20 />
+<img src = "https://img.shields.io/badge/created-Feb_2020-blue" height=20 />
 <img src = "https://img.shields.io/github/contributors/DonCharlesLambert/life-is-good" />
  </p>
 
