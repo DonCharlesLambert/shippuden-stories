@@ -3,8 +3,7 @@ from characters.character import CharacterNames, CHARACTERS
 import winsound
 from time import sleep
 from enum import Enum
-from PIL import Image
-from PIL import ImageTk
+from PIL import Image, ImageTk, ImageOps
 
 WIDTH = 600
 HEIGHT = 400
@@ -32,12 +31,13 @@ class Battle:
         self.canvas.focus_set()
 
         self.selected_characters = [0, 1]
+        self.title_select = 0
 
-        # winsound.PlaySound(rf'{PROJECT_NAME}\music\LifeIsGood.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
+        # winsound.PlaySound(rf'music\LifeIsGood.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
         self.game_window.after(0, self.game)
 
     def game(self):
-        # self.title_screen()
+        self.title_screen()
         self.set_background()
         while True:
             character_one, character_two = self.character_select()
@@ -45,11 +45,25 @@ class Battle:
 
     def title_screen(self):
         self.state = States.TITLE
+        title_items = []
+        button_texts = ["story", "battle"]
         bg_image = self.set_background(filename="training")
+        title_image = self.get_title_image()
+        demo = self.create_fighter(False, CharacterNames.KAKASHI, (100, 400), character_select=True)
+        demo.demo()
+        for i in range(2):
+            title_items.append(self.get_title_button(position=i))
+            title_items.append(self.get_title_button(position=i, text=button_texts[i]))
+
         while self.state == States.TITLE:
             self.canvas.update()
+            demo.animate()
             sleep(0.1)
+
+        [self.canvas.delete(item) for item in title_items]
         self.canvas.delete(bg_image)
+        self.canvas.delete(title_image)
+        demo.destroy()
 
 
     def character_select(self):
@@ -124,6 +138,36 @@ class Battle:
         self.images.append(bg_image)
         return canvas_item
 
+    def get_title_image(self):
+        width = 300
+        img = Image.open(rf'sprites\misc\title.png')
+        img = img.resize((width, 100), Image.Resampling.LANCZOS)
+        select_image = ImageTk.PhotoImage(img)
+        self.images.append(select_image)
+
+        x, y = (WIDTH - width)/2, 50
+        return self.canvas.create_image(x, y, image=select_image, anchor="nw")
+
+    def get_title_button(self, position=0, text=None):
+        img = Image.open(rf'sprites\misc\btn.png') if text is None else Image.open(rf'sprites\misc\{text}.png')
+        button_width = 180
+        button_height = 50
+        ratio = img.width / img.height
+        text_height = 33
+        text_width = int(text_height * ratio)
+
+        if text is None:
+            img = img.resize((button_width, button_height), Image.Resampling.LANCZOS)
+            img = ImageOps.mirror(img) if position % 2 == 0 else img
+        else:
+            img = img.resize((text_width, text_height), Image.Resampling.LANCZOS)
+
+        select_image = ImageTk.PhotoImage(img)
+        self.images.append(select_image)
+
+        x = WIDTH / 3 + 20 + ((button_width - text_width)/2 if text else 0)
+        y = position * 65 + 165 + ((button_height - text_height)/2 if text else 0)
+        return self.canvas.create_image(x, y, image=select_image, anchor="nw")
 
     def get_character_select(self, character_name, position=0, offset=None):
         img = Image.open(rf'sprites\select\{character_name}.png')
@@ -146,7 +190,11 @@ class Battle:
 
     def player_one_controller_press(self, e):
         if self.state == States.TITLE:
-            if e.char == " ":
+            if e.char == "s":
+                self.title_select = 0
+                self.state = "help me up"
+            if e.char == "w":
+                self.title_select = 1
                 self.state = "help me up"
         if self.state == States.FIGHT:
             if not self.player_one.is_bot:

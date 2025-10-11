@@ -30,6 +30,7 @@ class Fighter:
     JUMP = "jump"
     DAMAGE = "damage"
     DEAD = "dead"
+    DEMO = "demo" # kakashi only for now
 
     # DIRECTION CONSTANTS
     RIGHT = "right"
@@ -94,7 +95,8 @@ class Fighter:
         self.change_state(self.REMAIN, self.JUMP)
 
     def damage(self):
-        self.change_state(self.opponent.backside(), self.DAMAGE)
+        if self.opponent:
+            self.change_state(self.opponent.backside(), self.DAMAGE)
 
     def fall(self):
         self.change_state(self.REMAIN, self.FALL)
@@ -102,6 +104,9 @@ class Fighter:
     def die(self):
         self.dead = True
         self.change_state(self.REMAIN, self.FALL)
+
+    def demo(self):
+        self.change_state(self.REMAIN, self.DEMO)
 
     ''''''''''''''''''''''''''''''''''''''''''''
     '''              SETTERS                 '''
@@ -143,10 +148,11 @@ class Fighter:
             return True
 
     def is_facing_opponent(self):
-        if self.opponent.is_facing(self.RIGHT) and self.is_facing(self.LEFT):
-            return self.opponent.pos()[0] < self.pos()[0]
-        elif self.opponent.is_facing(self.LEFT) and self.is_facing(self.RIGHT):
-            return self.opponent.pos()[0] > self.pos()[0]
+        if self.opponent:
+            if self.opponent.is_facing(self.RIGHT) and self.is_facing(self.LEFT):
+                return self.opponent.pos()[0] < self.pos()[0]
+            elif self.opponent.is_facing(self.LEFT) and self.is_facing(self.RIGHT):
+                return self.opponent.pos()[0] > self.pos()[0]
         return False
 
     def can_attack(self):
@@ -154,14 +160,18 @@ class Fighter:
         return (time.time() - self.attack_cooldown) > 0.5
 
     def opponent_is_facing_back(self):
-        if self.opponent.is_facing(self.RIGHT):
-            return self.opponent.pos()[0] < self.pos()[0]
-        else:
-            return self.opponent.pos()[0] > self.pos()[0]
+        if self.opponent:
+            if self.opponent.is_facing(self.RIGHT):
+                return self.opponent.pos()[0] < self.pos()[0]
+            else:
+                return self.opponent.pos()[0] > self.pos()[0]
+        return False
 
     def has_received_combo(self):
-        if self.next_to_opponent() and self.opponent.action_is(self.ATTACK) and self.opponent.end_of_animation():
-            return True
+        if self.opponent:
+            if self.next_to_opponent() and self.opponent.action_is(self.ATTACK) and self.opponent.end_of_animation():
+                return True
+        return False
 
     def action_is(self, action):
         if self.action == action:
@@ -187,17 +197,21 @@ class Fighter:
         return False
 
     def next_to_opponent(self):
-        return abs(self.opponent.pos()[0] - self.pos()[0]) < self.NEXT_TO_THRESHOLD
+        if self.opponent:
+            return abs(self.opponent.pos()[0] - self.pos()[0]) < self.NEXT_TO_THRESHOLD
+        return False
 
     def too_close_to_opponent(self):
-        return abs(self.opponent.pos()[0] - self.pos()[0]) < self.TOO_CLOSE_THRESHOLD
+        if self.opponent:
+            return abs(self.opponent.pos()[0] - self.pos()[0]) < self.TOO_CLOSE_THRESHOLD
+        return False
 
     ''''''''''''''''''''''''''''''''''''''''''''
     '''           DRAW TO CANVAS             '''
     ''''''''''''''''''''''''''''''''''''''''''''
     def draw_sprite_img(self, pos):
         self.get_sprite_img()
-        self.sprite_item = self.canvas.create_image(pos, image=self.sprite_img, anchor="se")
+        self.sprite_item = self.canvas.create_image(pos, image=self.sprite_img, anchor="s")
 
     def redraw_sprite_img(self):
         self.get_sprite_img()
@@ -291,7 +305,7 @@ class Fighter:
             self.stance()
 
         # possibly 🍝
-        if self.animation_no > (0.3 * (len(self.sprites[self.action]))) and self.action_is(self.ATTACK) and not self.opponent.action_is(self.DAMAGE):
+        if self.animation_no > (0.3 * (len(self.sprites[self.action]))) and self.action_is(self.ATTACK) and not (self.opponent and self.opponent.action_is(self.DAMAGE)):
             self.stance()
 
         elif self.end_of_action(self.JUMP):
@@ -322,7 +336,7 @@ class Fighter:
             self.status_bar.update_chakra()
 
     def move_into_hit_box(self):
-        if self.direction == self.opponent.direction:
+        if self.opponent and self.direction == self.opponent.direction:
             self.switch_direction()
 
         if self.too_close_to_opponent():

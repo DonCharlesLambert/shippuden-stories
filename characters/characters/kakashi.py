@@ -11,5 +11,6 @@ class Kakashi(Bot):
         self.set_animation_sprites("damage", list(range(12, 14)))
         self.set_animation_sprites("fall", list(range(12, 18)))
         self.set_animation_sprites("attack", list(range(18, 31)))
+        self.set_animation_sprites("demo", list(range(36, 42)))
         self.set_animation_sprites("jump", [31, 31, 32, 32, 33, 33, 34, 34, 35, 35])
 
