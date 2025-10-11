@@ -19,6 +19,7 @@ class SelectScreen():
 
     
     def select_screen(self):
+        self.set_background()
         names = list(CharacterNames)
         for i, character in enumerate(names):
             self.select_items.append(self.get_character_select(character.value, i))
@@ -68,6 +69,16 @@ class SelectScreen():
         y = (position % 3) * 50 + 20
         return self.canvas.create_image(x, y, image=select_image, anchor="nw")
     
+    
+    def set_background(self, filename="rocks"):
+        img = Image.open(rf'sprites\misc\{filename}.png')
+        img = img.resize((self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight()), Image.Resampling.LANCZOS)
+        bg_image = ImageTk.PhotoImage(img)
+        self.images.append(bg_image)
+
+        canvas_item = self.canvas.create_image(0, 0, image=bg_image, anchor="nw")
+        return canvas_item
+
     def key_press(self, e):
         if e.char == "s":
             self.selected_characters[0] = (self.selected_characters[0] + 1) % len(CharacterNames)

@@ -1,5 +1,6 @@
 from characters.character import CHARACTERS
 from const import WIDTH, LEFT, RIGHT
+from PIL import Image, ImageTk
 
 def create_fighter(canvas, ai, name, position, character_select=False):
     direction = RIGHT if position[0] < WIDTH/2 else LEFT

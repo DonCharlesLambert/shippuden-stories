@@ -1,5 +1,6 @@
 
 from time import sleep
+from PIL import Image, ImageTk
 
 from const import PLAYER_ONE_POSITION, PLAYER_TWO_POSITION
 from screens.utils import create_fighter
@@ -17,6 +18,7 @@ class FightScreen():
 
     
     def fight(self, character_one, character_two):
+        self.background = self.set_background()
         self.player_one = create_fighter(self.canvas, False, character_one, PLAYER_ONE_POSITION)
         self.player_two = create_fighter(self.canvas, True, character_two, PLAYER_TWO_POSITION)
         self.player_one.set_opponent(self.player_two)
@@ -29,9 +31,22 @@ class FightScreen():
             sleep(0.1)
             if self.player_one.dead or self.player_two.dead:
                 post_end_timer += 0.1
+        self.destroy()
+
+    def set_background(self, filename="rocks"):
+        img = Image.open(rf'sprites\misc\{filename}.png')
+        img = img.resize((self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight()), Image.Resampling.LANCZOS)
+        bg_image = ImageTk.PhotoImage(img)
+        self.images.append(bg_image)
+
+        canvas_item = self.canvas.create_image(0, 0, image=bg_image, anchor="nw")
+        return canvas_item
+    
+    def destroy(self):
+        self.canvas.delete(self.background)
         self.player_one.destroy()
         self.player_two.destroy()
-
+    
     def key_press(self, e):
         if not self.player_one.is_bot:
             if e.char == "d":
