@@ -58,3 +58,6 @@ Shippuden Stories (formerly Life Is Good) is a Naruto fighting game made using t
 <p align = "center">
 <img  src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss2.png?raw=true"  style="margin:auto"  width="60%"  alt="An AI vs AI battle"/>
 </p>
+
+> **Disclaimer:** This is a non-commercial, fan-made project based on _Naruto_.  
+I do not claim ownership of any copyrighted or trademarked material used.
