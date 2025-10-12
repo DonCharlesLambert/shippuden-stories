@@ -9,8 +9,3 @@ PLAYER_TWO_POSITION = (525, 370)
 
 LEFT  = "left"
 RIGHT = "right"
-
-class States(Enum):
-    TITLE = "title"
-    SELECT = "select"
-    FIGHT = "fight"

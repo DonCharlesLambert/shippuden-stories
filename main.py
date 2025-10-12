@@ -2,10 +2,11 @@ from tkinter import Canvas, Tk, PhotoImage
 import winsound
 from time import sleep
 
-from const import States, WIDTH, HEIGHT
+from const import WIDTH, HEIGHT
 from screens.title import TitleScreen
 from screens.select import SelectScreen
 from screens.fight import FightScreen
+from screens.story import StoryScreen
 
 
 class Game:
@@ -25,16 +26,23 @@ class Game:
         self.game_window.after(0, self.game)
 
     def game(self):
-        self.state = States.TITLE # should change to a dynamic getter
         self.screen = TitleScreen(self.canvas)
         choice = self.screen.title_screen()
 
+        if choice == 1:
+            self.free_battle()
+        else:
+            self.story()
+
+    def story(self):
+            self.screen = StoryScreen(self.canvas)
+            self.screen.story_screen()
+
+    def free_battle(self):
         while True:
-            self.state = States.SELECT
             self.screen = SelectScreen(self.canvas)
             character_one, character_two = self.screen.select_screen()
             
-            self.state = States.FIGHT
             self.screen = FightScreen(self.canvas)
             self.screen.fight(character_one, character_two)
 
