@@ -18,7 +18,7 @@ Shippuden Stories (formerly Life Is Good) is a Naruto fighting game made using t
 <img  src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss3.gif?raw=true"  style="margin:auto"  width="60%"  alt="Gif showing gameplay"/>
  </p>
   
-  The game is played using the WASD keys, these keys are also used in character selection. The game is still a work in progress with projectiles, a main menu and a light story mode still to be added. If you find this interesting please leave a star or if you're really motivated make a contribution!
+  The game is played using the WASD and space keys, these keys are also used in character selection. The game is still a work in progress with projectiles, a main menu and a light story mode still to be added. If you find this interesting please leave a star or if you're really motivated make a contribution!
   
 
 ## Running
@@ -42,7 +42,6 @@ Shippuden Stories (formerly Life Is Good) is a Naruto fighting game made using t
 
 ### Core Improvements
 - [ ] End fight screen
-- [ ] Main Menu
 - [ ] Story mode
 - [ ] Character Sounds
 
@@ -50,7 +49,6 @@ Shippuden Stories (formerly Life Is Good) is a Naruto fighting game made using t
 - [ ] Protect Master
 - [ ] Linting
 - [ ] 90%+ Unit Test Coverage
-- [ ] Contributing MD (& Other Community Standard Features)
 
 ### Apres Tout
 - [ ] Release
@@ -61,3 +59,4 @@ Shippuden Stories (formerly Life Is Good) is a Naruto fighting game made using t
 
 > **Disclaimer:** This is a non-commercial, fan-made project based on _Naruto_.  
 I do not claim ownership of any copyrighted or trademarked material used.
+Please support all official releases!
