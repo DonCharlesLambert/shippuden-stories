@@ -41,7 +41,7 @@ class StoryScreen():
         text_obj = self.canvas.create_text(text_x, 100, text="")
         for i in range(0, len(text)):
             self.canvas.delete(text_obj)
-            text_obj = self.canvas.create_text(text_x, 100, text=text[0:i+1], anchor="w")
+            text_obj = self.canvas.create_text(text_x, 100, text=text[0:i+1], anchor="w", fill="white", font=("MS Gothic", 12))
             self.animate()
         self.await_press = True
         while self.await_press:
@@ -61,7 +61,6 @@ class StoryScreen():
                 fighter.left()
             else:
                 fighter.right()
-                print(fighter.pos())
             self.animate()
         fighter.stance()
             
