@@ -31,7 +31,7 @@ Shippuden Stories (formerly Life Is Good) is a Naruto fighting game made using t
 | Run the Game | `C:\life-is-good> python -m main` |
 
 <p align = "center">
-<img  src="https://github.com/DonCharlesLambert/life-is-good/blob/master/sprites/ss4.png?raw=true"  style="margin:auto"  width="60%"  alt="Screenshot From the Game"/>
+<img  src="https://github.com/DonCharlesLambert/life-is-good/blob/master/sprites/ss5.gif?raw=true"  style="margin:auto"  width="60%"  alt="Screenshot From the Game"/>
 </p>
 
 
@@ -42,7 +42,6 @@ Shippuden Stories (formerly Life Is Good) is a Naruto fighting game made using t
 
 ### Core Improvements
 - [ ] End fight screen
-- [ ] Story mode
 - [ ] Character Sounds
 
 ### Ancillary Improvements
@@ -54,7 +53,7 @@ Shippuden Stories (formerly Life Is Good) is a Naruto fighting game made using t
 - [ ] Release
 
 <p align = "center">
-<img  src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss2.png?raw=true"  style="margin:auto"  width="60%"  alt="An AI vs AI battle"/>
+<img  src="https://github.com/DonCharlesLambert/Life-Is-Good/blob/master/sprites/ss4.png?raw=true"  style="margin:auto"  width="60%"  alt="An AI vs AI battle"/>
 </p>
 
 > **Disclaimer:** This is a non-commercial, fan-made project based on _Naruto_.  
