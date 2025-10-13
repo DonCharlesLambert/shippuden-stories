@@ -83,6 +83,8 @@ class StoryScreen():
 
     def clear(self):
         [fighter.destroy() for fighter in self.present_characters.values()]
+        self.present_characters = {}
+
         
     
     def set_background(self, background):

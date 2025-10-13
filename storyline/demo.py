@@ -41,9 +41,9 @@ STORY = [
     Run(CharacterNames.SAKURA, 450),
     Speech(CharacterNames.DEIDARA, "Ah the nine tails jinchuriki...", side=RIGHT),
     Speech(CharacterNames.DEIDARA, "Your friend Gaara was so easy to kill", side=RIGHT),
-    Run(CharacterNames.DEIDARA, -10),
+    Run(CharacterNames.DEIDARA, -25),
     Speech(CharacterNames.NARUTO, "I’ll never forgive you!", side=LEFT),
-    Run(CharacterNames.NARUTO, -10),
+    Run(CharacterNames.NARUTO, -25),
     Speech(CharacterNames.SASORI, "...", side=RIGHT),
     Fight(CharacterNames.SAKURA, CharacterNames.SASORI),
 
