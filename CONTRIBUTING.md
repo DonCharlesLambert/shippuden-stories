@@ -67,10 +67,13 @@ git push origin feature/replace-sprites
 ## Help
 
   
+In order of difficulty
 
-1. Replacing all sprites with fan-made sprites
-2. Adding Sasuke
-3. Adding Stories
+1. WRITE THE STORY! Requires very little technical know-how. Just creativity!
+2. Replace Gaara's sprites
+3. Adding Sasuke
+4. Adding Awakenings
+5. Adding Projectiles
 
   
 

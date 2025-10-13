@@ -3,6 +3,8 @@ from screens.background import Backgrounds
 from characters.character import CharacterNames
 from const import LEFT, RIGHT
 
+# This story was written by an LLM... Can you write something better???
+
 STORY = [
     # Scene 1 — Team 7 Reunion
     Background(Backgrounds.TRAINING),
