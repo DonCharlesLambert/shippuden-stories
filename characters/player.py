@@ -44,6 +44,7 @@ class Fighter:
         self.direction = initial_direction
         self.opponent = None
         self.is_bot = False
+        self.not_playing = hide_status_bar
         self.status_bar = StatusBar(self, initial_direction, hidden = hide_status_bar)
 
         self.CANVAS_WIDTH = self.canvas.winfo_reqwidth()
@@ -232,7 +233,7 @@ class Fighter:
             else:
                 speed = -self.speed
 
-            if 0 < self.pos()[0] + self.CANVAS_WIDTH * speed < self.CANVAS_WIDTH:
+            if (self.not_playing) or 0 < self.pos()[0] + self.CANVAS_WIDTH * speed < self.CANVAS_WIDTH:
                 self.canvas.move(self.sprite_item, self.CANVAS_WIDTH * speed, 0)
 
     def move_back(self):

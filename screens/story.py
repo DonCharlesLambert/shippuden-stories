@@ -27,6 +27,7 @@ class StoryScreen():
     def story_screen(self):
         for part in STORY:
             if type(part) == Background:
+                self.clear()
                 self.set_background(part.background)
                 self.background = part.background
             if type(part) == Speech:
@@ -37,17 +38,17 @@ class StoryScreen():
                 self.run(part.character, part.x)
             if type(part) == Fight:
                 self.fight = FightScreen(self.canvas)
-                self.fight.fight(CharacterNames.NARUTO, CharacterNames.KAKASHI, self.background)
+                self.fight.fight(part.player_one, part.ai, self.background)
                 self.fight = None
     
     def speak(self, speaker, text, side=LEFT):
         mug = self.get_mug(speaker, side)
         dialogue = self.set_dialogue(side)
         text_x = 10 if side == LEFT else self.WIDTH - 290
-        text_obj = self.canvas.create_text(text_x, 100, text="")
+        text_obj = self.canvas.create_text(text_x, 90, text="")
         for i in range(0, len(text)):
             self.canvas.delete(text_obj)
-            text_obj = self.canvas.create_text(text_x, 100, text=text[0:i+1], anchor="w", fill="white", font=("MS Gothic", 12))
+            text_obj = self.canvas.create_text(text_x, 90, text=text[0:i+1], anchor="nw", fill="white", font=("MS Gothic", 12), width=250)
             self.animate()
         self.await_press = True
         while self.await_press:
@@ -79,6 +80,10 @@ class StoryScreen():
         [fighter.animate() for fighter in self.present_characters.values()]
         self.canvas.update()
         sleep(0.1)
+
+    def clear(self):
+        [fighter.destroy() for fighter in self.present_characters.values()]
+        
     
     def set_background(self, background):
         img = Image.open(rf'sprites\misc\{background.value}.png')
@@ -91,6 +96,8 @@ class StoryScreen():
     
     def get_mug(self, name=CharacterNames.NARUTO, side=LEFT):
         img = Image.open(os.path.join('sprites', name.value, "mug.png"))
+        width = int(100 * (img.width/img.height))
+        img = img.resize((width, 100), Image.Resampling.LANCZOS)
         mug_image = ImageTk.PhotoImage(img)
         self.images.append(mug_image)
         canvas_item = self.canvas.create_image(0 if side == LEFT else self.WIDTH - img.width, 0, image=mug_image, anchor="nw")
