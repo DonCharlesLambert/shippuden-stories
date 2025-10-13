@@ -1,4 +1,14 @@
 
+class Background:
+    def __init__(self, background):
+        self.background = background
+
+class Appear:
+    def __init__(self, character, x):
+        self.character = character
+        self.x = x
+    
+
 class Run:
     def __init__(self, character, x):
         self.character = character
