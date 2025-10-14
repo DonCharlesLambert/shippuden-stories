@@ -58,7 +58,6 @@ Please ⭐ the repo if you like it or make a contribution!
 - [ ] Character Sounds
 
 ### Ancillary Improvements
-- [ ] Protect Master
 - [ ] Linting
 - [ ] 90%+ Unit Test Coverage
 
