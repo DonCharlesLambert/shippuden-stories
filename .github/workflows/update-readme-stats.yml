@@ -1,0 +1,114 @@
+name: Update README with Story Stats
+
+on:
+  push:
+    branches:
+      - master
+      - Daily-Story-Challenge
+    paths:
+      - 'storyline/**'
+  schedule:
+    # Run daily at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Calculate story stats
+        id: stats
+        run: |
+          # Count total story files
+          STORY_COUNT=$(find storyline -name 'daily_story_*.md' | wc -l)
+          echo "story_count=$STORY_COUNT" >> $GITHUB_OUTPUT
+          
+          # Count unique contributors
+          CONTRIBUTORS=$(git log --format='%aN' storyline/ | sort -u | wc -l)
+          echo "contributors=$CONTRIBUTORS" >> $GITHUB_OUTPUT
+          
+          # Get latest story file
+          LATEST_STORY=$(find storyline -name 'daily_story_*.md' -type f -printf '%T+ %p\n' | sort -r | head -n 1 | cut -d' ' -f2-)
+          echo "latest_story=$LATEST_STORY" >> $GITHUB_OUTPUT
+          
+          # Get total commits to storyline
+          TOTAL_COMMITS=$(git log --oneline storyline/ | wc -l)
+          echo "total_commits=$TOTAL_COMMITS" >> $GITHUB_OUTPUT
+          
+          echo "📊 Story Count: $STORY_COUNT"
+          echo "👥 Contributors: $CONTRIBUTORS"
+          echo "📝 Latest Story: $LATEST_STORY"
+          echo "💻 Total Commits: $TOTAL_COMMITS"
+      
+      - name: Update README with stats
+        run: |
+          # Create a temporary Python script to update README
+          cat > update_readme.py << 'EOF'
+          import re
+          import os
+          
+          story_count = os.environ.get('STORY_COUNT', '0')
+          contributors = os.environ.get('CONTRIBUTORS', '0')
+          latest_story = os.environ.get('LATEST_STORY', 'N/A')
+          total_commits = os.environ.get('TOTAL_COMMITS', '0')
+          
+          with open('README.md', 'r') as f:
+              content = f.read()
+          
+          # Update or add stats section
+          stats_section = f"""#### 📊 Repository Stats
+          ![GitHub followers](https://img.shields.io/github/followers/VinodHatti7019?style=social)
+          ![GitHub stars](https://img.shields.io/github/stars/VinodHatti7019/shippuden-stories?style=social)
+          ![GitHub forks](https://img.shields.io/github/forks/VinodHatti7019/shippuden-stories?style=social)
+          
+          - 📚 **Total Daily Stories**: {story_count}
+          - 👥 **Contributors**: {contributors}
+          - 💻 **Story Commits**: {total_commits}
+          - 🔥 **Days Active**: {story_count}
+          """
+          
+          # Replace existing stats section or add it
+          if '#### 📊 Repository Stats' in content:
+              pattern = r'#### 📊 Repository Stats.*?(?=\*\*Follow|---|
+##)'
+              content = re.sub(pattern, stats_section, content, flags=re.DOTALL)
+          else:
+              # Add stats section before the follow line
+              content = content.replace('**Follow [@VinodHatti7019]', stats_section + '\n**Follow [@VinodHatti7019]')
+          
+          with open('README.md', 'w') as f:
+              f.write(content)
+          
+          print("✅ README updated successfully!")
+          EOF
+          
+          export STORY_COUNT=${{ steps.stats.outputs.story_count }}
+          export CONTRIBUTORS=${{ steps.stats.outputs.contributors }}
+          export LATEST_STORY=${{ steps.stats.outputs.latest_story }}
+          export TOTAL_COMMITS=${{ steps.stats.outputs.total_commits }}
+          
+          python update_readme.py
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git diff --staged --quiet || git commit -m "📊 Auto-update README with story stats [skip ci]"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
