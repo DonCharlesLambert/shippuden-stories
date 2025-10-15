@@ -21,7 +21,7 @@ STORY = [
     Background(Backgrounds.DESERT),
     Appear(CharacterNames.GAARA, 350),
     Speech(CharacterNames.GAARA, "These Akatsuki... they’re coming for me.", side=LEFT),
-    Teleport(CharacterNames.DEIDARA, 300),
+    Teleport(CharacterNames.DEIDARA, 290),
     Speech(CharacterNames.DEIDARA, "Heh, Kazekage, your art ends here... boom!", side=RIGHT),
     Fight(CharacterNames.GAARA, CharacterNames.DEIDARA),
     Speech(CharacterNames.DEIDARA, "You were strong... but my art is an explosion!", side=RIGHT),
