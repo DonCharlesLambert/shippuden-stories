@@ -6,7 +6,7 @@ from screens.fight import FightScreen
 from screens.utils import create_fighter
 from characters.character import CharacterNames
 from storyline.demo import STORY
-from storyline.common import Background, Speech, Run, Fight, Appear
+from storyline.common import Background, Speech, Run, Fight, Appear, Teleport
 from screens.background import FLOOR_HEIGHT
 import os
 
@@ -32,6 +32,8 @@ class StoryScreen():
                 self.background = part.background
             if type(part) == Speech:
                 self.speak(part.speaker, part.text, part.side)
+            if type(part) == Teleport:
+                self.teleport(part.character, part.x)
             if type(part) == Appear:
                 self.appear(part.character, part.x)
             if type(part) == Run:
@@ -76,6 +78,27 @@ class StoryScreen():
             self.animate()
         fighter.stance()
             
+    def teleport(self, name, x):
+        fighter = self.present_characters.get(name, None)
+        if fighter is not None:
+            self.destroy_character(name)
+            # XXX - deal with this later
+
+        img = Image.open(rf'sprites\common\teleport\0.png')
+        teleport_image = ImageTk.PhotoImage(img)
+        teleport_item = self.canvas.create_image(x, self.floor_height, image=teleport_image, anchor="s")
+        for i in range(1, 6):
+            teleport_image = ImageTk.PhotoImage(Image.open(rf'sprites\common\teleport\{i}.png'))
+            self.canvas.itemconfig(teleport_item, image=teleport_image)
+            if i == 1:
+                self.appear(name, x)
+                self.canvas.tag_raise(teleport_item)
+            self.animate()
+
+
+
+
+
     def animate(self):
         [fighter.animate() for fighter in self.present_characters.values()]
         self.canvas.update()
@@ -85,7 +108,9 @@ class StoryScreen():
         [fighter.destroy() for fighter in self.present_characters.values()]
         self.present_characters = {}
 
-        
+    def destroy_character(self, name):
+        self.present_characters[name].destroy()
+        self.present_characters.pop(name)        
     
     def set_background(self, background):
         img = Image.open(rf'sprites\misc\{background.value}.png')
