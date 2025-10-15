@@ -10,7 +10,7 @@ STORY = [
     Background(Backgrounds.TRAINING),
     Appear(CharacterNames.NARUTO, 150),
     Appear(CharacterNames.SAKURA, 100),
-    Teleport(CharacterNames.KAKASHI, 500),
+    Appear(CharacterNames.KAKASHI, 500),
     Speech(CharacterNames.KAKASHI, "Alright, Team 7... time to see how much you've improved.", side=RIGHT),
     Speech(CharacterNames.NARUTO, "Heh, I’ve been training nonstop! I’ll show you how strong I’ve gotten!", side=LEFT),
     Speech(CharacterNames.SAKURA, "You’re not the only one who’s gotten stronger, Naruto!", side=LEFT),
