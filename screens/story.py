@@ -23,6 +23,7 @@ class StoryScreen():
         self.present_characters = {}
         self.floor_height = 0
         self.background = None
+        self.skip_text = False
 
     def story_screen(self):
         for part in STORY:
@@ -42,16 +43,21 @@ class StoryScreen():
                 self.fight = FightScreen(self.canvas)
                 self.fight.fight(part.player_one, part.ai, self.background)
                 self.fight = None
+        while self.await_press:
+            self.animate()
     
     def speak(self, speaker, text, side=LEFT):
         mug = self.get_mug(speaker, side)
         dialogue = self.set_dialogue(side)
         text_x = 10 if side == LEFT else self.WIDTH - 290
         text_obj = self.canvas.create_text(text_x, 90, text="")
+        self.skip_text = False
         for i in range(0, len(text)):
+            if self.skip_text: i = len(text) - 1
             self.canvas.delete(text_obj)
             text_obj = self.canvas.create_text(text_x, 90, text=text[0:i+1], anchor="nw", fill="white", font=("MS Gothic", 12), width=250)
             self.animate()
+            if self.skip_text and i == len(text) - 1: break 
         self.await_press = True
         while self.await_press:
             self.animate()
@@ -146,6 +152,7 @@ class StoryScreen():
     def key_press(self, e):
         if self.fight is not None:
             self.fight.key_press(e)
+        self.skip_text = True
         self.await_press = False
 
     def key_release(self, e):
