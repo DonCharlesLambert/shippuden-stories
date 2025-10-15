@@ -8,6 +8,11 @@ class Appear:
         self.character = character
         self.x = x
     
+class Teleport:
+    def __init__(self, character, x):
+        self.character = character
+        self.x = x
+
 
 class Run:
     def __init__(self, character, x):
