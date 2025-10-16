@@ -14,6 +14,7 @@ class SelectScreen():
         self.HEIGHT = canvas.winfo_reqheight()
         self.active = True
 
+        self.current_choosing = 0
         self.selected_characters = [0, 1]
         self.select_items = []
 
@@ -29,6 +30,7 @@ class SelectScreen():
         self.mock_player_one = create_fighter(self.canvas, False, names[self.selected_characters[0]], PLAYER_ONE_POSITION, character_select=True)
         self.mock_player_two = create_fighter(self.canvas, False, names[self.selected_characters[1]], PLAYER_TWO_POSITION, character_select=True)
         
+        self.selekta = Selekta(self.canvas, PLAYER_ONE_POSITION[0], PLAYER_ONE_POSITION[1])
 
         time = 0
         while self.active:
@@ -46,6 +48,7 @@ class SelectScreen():
                 self.mock_player_two = create_fighter(self.canvas, False, names[self.selected_characters[1]], PLAYER_TWO_POSITION, character_select=True)
                 self.canvas.delete(self.player_two_icon)
                 self.player_two_icon = self.get_character_select("2p", self.selected_characters[1], offset=True)
+            self.selekta.animate()
             sleep(0.1)
             time += 0.1
 
@@ -57,6 +60,7 @@ class SelectScreen():
         self.canvas.delete(self.player_two_icon)
         self.mock_player_one.destroy()
         self.mock_player_two.destroy()
+        self.selekta.destroy()
         self.active = False
 
     
@@ -81,15 +85,49 @@ class SelectScreen():
 
     def key_press(self, e):
         if e.char == "s":
-            self.selected_characters[0] = (self.selected_characters[0] + 1) % len(CharacterNames)
+            self.selected_characters[self.current_choosing] = (self.selected_characters[self.current_choosing] + 1) % len(CharacterNames)
         if e.char == "w":
-            self.selected_characters[0] = (self.selected_characters[0] - 1) % len(CharacterNames)
+            self.selected_characters[self.current_choosing] = (self.selected_characters[self.current_choosing] - 1) % len(CharacterNames)
         if e.char == "d":
-            self.selected_characters[1] = (self.selected_characters[1] + 1) % len(CharacterNames)
+            self.current_choosing = (self.current_choosing + 1) % 2
         if e.char == "a":
-            self.selected_characters[1] = (self.selected_characters[1] - 1) % len(CharacterNames)
+            self.current_choosing = (self.current_choosing - 1) % 2
+        if e.char in ["a", "d"]:
+            selekta_x, selekta_y = PLAYER_ONE_POSITION if self.current_choosing == 0 else PLAYER_TWO_POSITION
+            self.selekta.move(selekta_x, selekta_y)
         if e.char == " ":
             self.destroy()
 
     def key_release(self, e):
         pass
+
+
+class Selekta():
+    # similar to title selekta may need to change
+    def __init__(self, canvas, x, y):
+        self.canvas = canvas
+        self.img = None
+        self.x_offset, self.y_offset = 0, -100
+        self.item = self.create(x, y)
+
+        self.speed = 1
+        self.movement = 1
+
+
+    def create(self, x, y):
+        img = Image.open(rf'sprites\misc\sidelekta.png')
+        img = img.resize((10, 30), Image.Resampling.LANCZOS)
+        self.img = ImageTk.PhotoImage(img)
+        return self.canvas.create_image(x + self.x_offset, y + self.y_offset, image=self.img, anchor="n")
+    
+    def animate(self):
+        self.canvas.move(self.item, 0, self.speed)
+        self.movement += self.speed
+        if abs(self.movement) > 5:
+            self.speed = -self.speed
+
+    def move(self, x, y):
+        self.canvas.moveto(self.item, x + self.x_offset, y + self.y_offset)
+
+    def destroy(self):
+        self.canvas.delete(self.item)
