@@ -60,6 +60,8 @@ class FightScreen():
                 self.player_one.attack()
             if e.char == "w":
                 self.player_one.jump()
+            if e.char == "s":
+                self.player_one.substitute()
     
     def key_release(self, e):
         if not self.player_one.is_bot:

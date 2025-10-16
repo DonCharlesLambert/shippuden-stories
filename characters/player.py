@@ -45,6 +45,7 @@ class Fighter:
         self.opponent = None
         self.is_bot = False
         self.not_playing = hide_status_bar
+        self.substitutions = 3
         self.status_bar = StatusBar(self, initial_direction, hidden = hide_status_bar)
 
         self.CANVAS_WIDTH = self.canvas.winfo_reqwidth()
@@ -70,6 +71,7 @@ class Fighter:
             self.JUMP   : [39, 39, 40, 40, 41, 41, 42, 42, 43]
         }
         self.draw_sprite_img(pos)
+        self.animatable_children = []
 
     ''''''''''''''''''''''''''''''''''''''''''''
     '''         PRIMARY INTERFACE            '''
@@ -108,6 +110,12 @@ class Fighter:
 
     def demo(self):
         self.change_state(self.REMAIN, self.DEMO)
+
+    def substitute(self):
+        if self.substitutions > 0:
+            self.animatable_children.append(SubstitutionJutsu(self.canvas, self, self.opponent))
+            self.substitutions -= 1
+            self.status_bar.update_substitutions()
 
     ''''''''''''''''''''''''''''''''''''''''''''
     '''              SETTERS                 '''
@@ -256,6 +264,10 @@ class Fighter:
             elif self.animation_no != len(self.sprites[self.action]) - 1:
                 self.canvas.move(self.sprite_item, 0, self.JUMP_HEIGHT)
 
+    def force_move(self, x):
+        self.canvas.move(self.sprite_item, x, 0)
+
+
     ''''''''''''''''''''''''''''''''''''''''''''
     '''         HANDLING USER INPUT          '''
     ''''''''''''''''''''''''''''''''''''''''''''
@@ -328,6 +340,10 @@ class Fighter:
         self.animation_no = (self.animation_no + 1) % (len(self.sprites[self.action]))
         self.redraw_sprite_img()
 
+        for child in self.animatable_children:
+            if child.active:
+                child.animate()
+
     def take_damage(self):
         self.health -= self.DAMAGE_PER_SECOND
         self.status_bar.update_health()
@@ -349,3 +365,45 @@ class Fighter:
     def destroy(self):
         self.canvas.delete(self.sprite_item)
         self.status_bar.destroy()
+
+# should inherit some parent animatable item class that has an is_active method or something
+class SubstitutionJutsu():
+    def __init__(self, canvas, player, opponent):
+        self.canvas = canvas
+        self.player = player
+        self.opponent = opponent
+        self.active = True
+
+        self.stage = 0 # 0 for dissapear, 1 for appear
+        self.i = 0
+
+        img = Image.open(self.get_img_path(self.i))
+        self.img = ImageTk.PhotoImage(img)
+        self.item = self.canvas.create_image(player.pos(), image=self.img, anchor="s")
+    
+    def get_img_path(self, i):
+        return rf'sprites\common\teleport\{i}.png'
+
+    def animate(self):
+        self.img = ImageTk.PhotoImage(Image.open(self.get_img_path(self.i)))
+        self.canvas.itemconfig(self.item, image=self.img)
+        self.i += 1
+
+        canvas_width = self.canvas.winfo_reqwidth()
+        x = 100 if self.opponent.pos()[0] > canvas_width / 2 else canvas_width - 100
+
+        if self.i == 1 and self.stage == 0:
+            self.player.force_move(-canvas_width*2)
+        elif self.i > 5 and self.stage == 0:
+            self.stage = 1
+            self.i = 0
+            self.canvas.moveto(self.item, x=x)
+        elif self.i == 1 and self.stage == 1:
+            x = self.canvas.coords(self.item)[0] - self.player.pos()[0]
+            self.player.force_move(x)
+        elif self.i > 5:
+            self.destroy()
+
+    def destroy(self):
+        self.canvas.delete(self.item)
+        self.active = False
