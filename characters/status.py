@@ -136,4 +136,6 @@ class StatusBar:
         self.canvas.delete(self.canvas_health_outline)
         self.canvas.delete(self.canvas_chakra_bar)
         self.canvas.delete(self.canvas_chakra_outline)
+        for log in self.canvas_logs:
+            self.canvas.delete(log)
 

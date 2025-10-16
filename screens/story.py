@@ -30,7 +30,7 @@ class StoryScreen():
         for part in STORIES.get(self.story, "demo"):
             if type(part) == Background:
                 self.clear()
-                self.set_background(part.background)
+                self.background_item = self.set_background(part.background)
                 self.background = part.background
             if type(part) == Speech:
                 self.speak(part.speaker, part.text, part.side)
@@ -44,8 +44,10 @@ class StoryScreen():
                 self.fight = FightScreen(self.canvas)
                 self.fight.fight(part.player_one, part.ai, self.background)
                 self.fight = None
+        self.await_press = True
         while self.await_press:
             self.animate()
+        self.destroy()
     
     def speak(self, speaker, text, side=LEFT):
         mug = self.get_mug(speaker, side)
@@ -117,7 +119,11 @@ class StoryScreen():
 
     def destroy_character(self, name):
         self.present_characters[name].destroy()
-        self.present_characters.pop(name)        
+        self.present_characters.pop(name)      
+
+    def destroy(self):
+        self.clear()
+        self.canvas.delete(self.background_item)  
     
     def set_background(self, background):
         img = Image.open(rf'sprites\misc\{background.value}.png')

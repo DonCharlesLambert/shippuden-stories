@@ -68,9 +68,10 @@ class SelectScreen():
         img = Image.open(rf'sprites\select\{character_name}.png')
         select_image = ImageTk.PhotoImage(img)
         self.images.append(select_image)
+        CHARACTERS_PER_COL = 3
 
-        x = 90 + (150 * (position // 3)) + (0 if not offset else 100 )
-        y = (position % 3) * 50 + 20
+        x = 90 + (150 * (position // CHARACTERS_PER_COL)) + (0 if not offset else 100 )
+        y = (position % CHARACTERS_PER_COL) * 50 + 20
         return self.canvas.create_image(x, y, image=select_image, anchor="nw")
     
     

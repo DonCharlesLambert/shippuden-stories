@@ -12,4 +12,5 @@ STORY = [
     Speech(CharacterNames.ITACHI, "Yeah run the program using python -m main --story [storyname]", side=RIGHT),
     Speech(CharacterNames.NARUTO, "Let's fight", side=LEFT),
     Fight(CharacterNames.NARUTO, CharacterNames.ITACHI),
+    Speech(CharacterNames.NARUTO, "Decent battle, now where is Sasuke!", side=LEFT),
 ]

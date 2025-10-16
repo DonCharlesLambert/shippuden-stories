@@ -27,13 +27,14 @@ class Game:
         self.game_window.after(0, self.game)
 
     def game(self):
-        self.screen = TitleScreen(self.canvas)
-        choice = self.screen.title_screen()
+        while True:
+            self.screen = TitleScreen(self.canvas)
+            choice = self.screen.title_screen()
 
-        if choice == 1:
-            self.free_battle()
-        else:
-            self.story()
+            if choice == 1:
+                self.free_battle()
+            else:
+                self.story()
 
     def story(self):
             self.screen = StoryScreen(self.canvas, story = self.story_name)

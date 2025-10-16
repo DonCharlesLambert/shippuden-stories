@@ -41,6 +41,7 @@ class Fighter:
     def __init__(self, name, initial_direction, sprite_canvas, pos, hide_status_bar = False):
         self.name = name
         self.canvas = sprite_canvas
+        self.resize_ratio = 1
         self.direction = initial_direction
         self.opponent = None
         self.is_bot = False
@@ -229,6 +230,7 @@ class Fighter:
     def get_sprite_img(self):
         img_no = self.sprites[self.action][self.animation_no]
         img = Image.open(os.path.join(self.SPRITE_FOLDER, self.name, self.direction, str(img_no) + ".png"))
+        img = img.resize((int(img.width * self.resize_ratio), int(img.height * self.resize_ratio)), Image.Resampling.LANCZOS)
         self.sprite_img = ImageTk.PhotoImage(img)
 
     ''''''''''''''''''''''''''''''''''''''''''''
