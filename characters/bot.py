@@ -13,13 +13,16 @@ class Bot(Fighter):
             self.decide_movement()
 
     def decide_movement(self):
-        if self.action_is(self.DAMAGE) or self.action_is(self.FALL):
+        if self.opponent and self.opponent.dead:
+            self.stance()
+
+        elif self.action_is(self.DAMAGE) or self.action_is(self.FALL):
             pass
 
-        elif self.opponent.action_is(self.FALL) and not self.action_is(self.RUN):
+        elif self.opponent and self.opponent.action_is(self.FALL) and not self.action_is(self.RUN):
             self.away()
 
-        elif self.action_is(self.ATTACK) and not self.opponent.action_is(self.DAMAGE):
+        elif self.opponent and self.action_is(self.ATTACK) and not self.opponent.action_is(self.DAMAGE):
             self.stance()
 
         elif self.action_is(self.ATTACK):
