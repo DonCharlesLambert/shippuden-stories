@@ -38,10 +38,10 @@ Please ⭐ the repo if you like it or make a contribution!
 
 | Steps |  |
 |--|--|
-| Clone the Repo | `C:\> git clone https://github.com/DonCharlesLambert/life-is-good` |
-| Enter the Repo | `C:\> cd life-is-good` |
-| Install the required libraries | `C:\life-is-good> pip install -r requirements.txt` |
-| Run the Game | `C:\life-is-good> python -m main` |
+| Clone the Repo | `C:\> git clone https://github.com/DonCharlesLambert/shippuden-stories` |
+| Enter the Repo | `C:\> cd shippuden-stories` |
+| Install the required libraries | `C:\shippuden-stories> pip install -r requirements.txt` |
+| Run the Game | `C:\shippuden-stories> python -m main` |
 
 <p align = "center">
 <img  src="https://github.com/DonCharlesLambert/life-is-good/blob/master/sprites/ss5.gif?raw=true"  style="margin:auto"  width="60%"  alt="Screenshot From the Game"/>
