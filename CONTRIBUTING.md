@@ -32,11 +32,10 @@ git push origin feature/replace-sprites
 ## 🌀How to Write a Story
 1. In the storyline folder create a new python file (e.g `kakashis_tale.py`)
 2. Use `demo.py` as a guide for how to write it out
-3. To test it edit `screens\story.py` to import your `STORY` instead of `storyline.demo.STORY`
-	(Though do not include this particular change in your PR)
-4. Raise a PR to add your story!
+3. Add your story to `storyline\stories.py`
+4. Test your story using `python -m main --story [storyname]`
+5. Raise a PR to add your story!
 
-In the near future I (or another contributor!) will add functionality to choose which story to run without changing the import in `story.py`
   
 
 ## Help
