@@ -5,18 +5,19 @@ from const import LEFT, PLAYER_ONE_POSITION
 from screens.fight import FightScreen
 from screens.utils import create_fighter
 from characters.character import CharacterNames
-from storyline.demo import STORY
+from storyline.stories import STORIES
 from storyline.common import Background, Speech, Run, Fight, Appear, Teleport
 from screens.background import FLOOR_HEIGHT
 import os
 
 class StoryScreen():
-    def __init__(self, canvas):
+    def __init__(self, canvas, story):
         self.canvas = canvas
         self.images = []
         self.WIDTH = canvas.winfo_reqwidth()
         self.HEIGHT = canvas.winfo_reqheight()
         self.active = True
+        self.story = story
 
         self.await_press = False
         self.fight = None
@@ -26,7 +27,7 @@ class StoryScreen():
         self.skip_text = False
 
     def story_screen(self):
-        for part in STORY:
+        for part in STORIES.get(self.story, "demo"):
             if type(part) == Background:
                 self.clear()
                 self.set_background(part.background)
