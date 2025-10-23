@@ -1,11 +1,12 @@
-
 from enum import Enum
+
 
 class Backgrounds(Enum):
     ROCKS = "rocks"
     TRAINING = "training"
     DESERT = "desert"
     UCHICHA = "uchiha"
+
 
 FLOOR_HEIGHT = {
     Backgrounds.TRAINING: 400,

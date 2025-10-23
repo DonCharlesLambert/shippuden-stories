@@ -1,8 +1,13 @@
 from characters.bot import Bot
 
+
 class Gaara(Bot):
-    def __init__(self, initial_direction, sprite_canvas, pos, is_bot=False, hide_status_bar = False):
-        super(Gaara, self).__init__("gaara", initial_direction, sprite_canvas, pos, hide_status_bar)
+    def __init__(
+        self, initial_direction, sprite_canvas, pos, is_bot=False, hide_status_bar=False
+    ):
+        super(Gaara, self).__init__(
+            "gaara", initial_direction, sprite_canvas, pos, hide_status_bar
+        )
         self.is_bot = is_bot
 
         self.set_animation_sprites("stance", list(range(0, 6)))
@@ -11,4 +16,3 @@ class Gaara(Bot):
         self.set_animation_sprites("fall", list(range(14, 18)))
         self.set_animation_sprites("attack", list(range(18, 33)))
         self.set_animation_sprites("jump", [33, 33, 34, 34, 35, 35, 36, 36])
-
