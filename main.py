@@ -37,14 +37,14 @@ class Game:
                 self.story()
 
     def story(self):
-            self.screen = StoryScreen(self.canvas, story = self.story_name)
-            self.screen.story_screen()
+        self.screen = StoryScreen(self.canvas, story=self.story_name)
+        self.screen.story_screen()
 
     def free_battle(self):
         while True:
             self.screen = SelectScreen(self.canvas)
             character_one, character_two = self.screen.select_screen()
-            
+
             self.screen = FightScreen(self.canvas)
             self.screen.fight(character_one, character_two)
 
@@ -56,8 +56,8 @@ class Game:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(prog='Shippuden Stories')
-    parser.add_argument('-s', '--story', default="demo")
+    parser = argparse.ArgumentParser(prog="Shippuden Stories")
+    parser.add_argument("-s", "--story", default="demo")
     args = parser.parse_args()
 
     root = Tk()

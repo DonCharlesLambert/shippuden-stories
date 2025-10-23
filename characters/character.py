@@ -9,6 +9,7 @@ from characters.characters.sakura import Sakura
 from characters.characters.lee import Lee
 from enum import Enum
 
+
 class CharacterNames(Enum):
     NARUTO = "naruto"
     SAKURA = "sakura"
@@ -19,6 +20,7 @@ class CharacterNames(Enum):
     KISAME = "kisame"
     DEIDARA = "deidara"
     SASORI = "sasori"
+
 
 CHARACTERS = {
     CharacterNames.NARUTO: Naruto,

@@ -3,8 +3,12 @@ from characters.player import Fighter
 
 
 class Bot(Fighter):
-    def __init__(self, name, initial_direction, sprite_canvas, pos, hide_status_bar = False):
-        super(Bot, self).__init__(name, initial_direction, sprite_canvas, pos, hide_status_bar)
+    def __init__(
+        self, name, initial_direction, sprite_canvas, pos, hide_status_bar=False
+    ):
+        super(Bot, self).__init__(
+            name, initial_direction, sprite_canvas, pos, hide_status_bar
+        )
         self.is_bot = True
 
     def animate(self):
@@ -19,10 +23,18 @@ class Bot(Fighter):
         elif self.action_is(self.DAMAGE) or self.action_is(self.FALL):
             pass
 
-        elif self.opponent and self.opponent.action_is(self.FALL) and not self.action_is(self.RUN):
+        elif (
+            self.opponent
+            and self.opponent.action_is(self.FALL)
+            and not self.action_is(self.RUN)
+        ):
             self.away()
 
-        elif self.opponent and self.action_is(self.ATTACK) and not self.opponent.action_is(self.DAMAGE):
+        elif (
+            self.opponent
+            and self.action_is(self.ATTACK)
+            and not self.opponent.action_is(self.DAMAGE)
+        ):
             self.stance()
 
         elif self.action_is(self.ATTACK):

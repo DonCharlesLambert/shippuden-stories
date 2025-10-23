@@ -5,12 +5,12 @@ from characters.status import StatusBar
 import time
 
 
-# 🍝 
+# 🍝
 # make abstract base class
 # move consts
 class Fighter:
     # FOLDER CONSTANT
-    SPRITE_FOLDER = rf'sprites'
+    SPRITE_FOLDER = rf"sprites"
 
     # MOVEMENT & COLLISION CONSTANTS
     NEXT_TO_THRESHOLD = 40
@@ -30,7 +30,7 @@ class Fighter:
     JUMP = "jump"
     DAMAGE = "damage"
     DEAD = "dead"
-    DEMO = "demo" # kakashi only for now
+    DEMO = "demo"  # kakashi only for now
 
     # DIRECTION CONSTANTS
     RIGHT = "right"
@@ -38,7 +38,9 @@ class Fighter:
     SWITCH = "switch"
     REMAIN = ""
 
-    def __init__(self, name, initial_direction, sprite_canvas, pos, hide_status_bar = False):
+    def __init__(
+        self, name, initial_direction, sprite_canvas, pos, hide_status_bar=False
+    ):
         self.name = name
         self.canvas = sprite_canvas
         self.resize_ratio = 1
@@ -47,7 +49,7 @@ class Fighter:
         self.is_bot = False
         self.not_playing = hide_status_bar
         self.substitutions = 3
-        self.status_bar = StatusBar(self, initial_direction, hidden = hide_status_bar)
+        self.status_bar = StatusBar(self, initial_direction, hidden=hide_status_bar)
 
         self.CANVAS_WIDTH = self.canvas.winfo_reqwidth()
         self.CANVAS_HEIGHT = self.canvas.winfo_reqheight()
@@ -64,19 +66,19 @@ class Fighter:
         self.sprite_item = None
 
         self.sprites = {
-            self.STANCE : list(range(0, 4)),
-            self.RUN    : list(range(4, 10)),
-            self.DAMAGE : list(range(10, 12)),
-            self.FALL   : list(range(10, 15)),
-            self.ATTACK : list(range(16, 39)),
-            self.JUMP   : [39, 39, 40, 40, 41, 41, 42, 42, 43]
+            self.STANCE: list(range(0, 4)),
+            self.RUN: list(range(4, 10)),
+            self.DAMAGE: list(range(10, 12)),
+            self.FALL: list(range(10, 15)),
+            self.ATTACK: list(range(16, 39)),
+            self.JUMP: [39, 39, 40, 40, 41, 41, 42, 42, 43],
         }
         self.draw_sprite_img(pos)
         self.animatable_children = []
 
-    ''''''''''''''''''''''''''''''''''''''''''''
-    '''         PRIMARY INTERFACE            '''
-    ''''''''''''''''''''''''''''''''''''''''''''
+    """""" """""" """""" """""" """""" """""" """""" ""
+    """         PRIMARY INTERFACE            """
+    """""" """""" """""" """""" """""" """""" """""" ""
 
     def stance(self):
         self.change_state(self.REMAIN, self.STANCE)
@@ -114,13 +116,15 @@ class Fighter:
 
     def substitute(self):
         if self.substitutions > 0:
-            self.animatable_children.append(SubstitutionJutsu(self.canvas, self, self.opponent))
+            self.animatable_children.append(
+                SubstitutionJutsu(self.canvas, self, self.opponent)
+            )
             self.substitutions -= 1
             self.status_bar.update_substitutions()
 
-    ''''''''''''''''''''''''''''''''''''''''''''
-    '''              SETTERS                 '''
-    ''''''''''''''''''''''''''''''''''''''''''''
+    """""" """""" """""" """""" """""" """""" """""" ""
+    """              SETTERS                 """
+    """""" """""" """""" """""" """""" """""" """""" ""
 
     def set_animation_sprites(self, animation_name, image_numbers):
         self.sprites[animation_name] = image_numbers
@@ -138,9 +142,9 @@ class Fighter:
     def reset_attack_timer(self):
         self.attack_cooldown = time.time()
 
-    ''''''''''''''''''''''''''''''''''''''''''''
-    '''              GETTERS                 '''
-    ''''''''''''''''''''''''''''''''''''''''''''
+    """""" """""" """""" """""" """""" """""" """""" ""
+    """              GETTERS                 """
+    """""" """""" """""" """""" """""" """""" """""" ""
 
     def pos(self):
         return self.canvas.coords(self.sprite_item)
@@ -148,13 +152,18 @@ class Fighter:
     def backside(self):
         return self.RIGHT if self.direction == self.LEFT else self.LEFT
 
-    ''''''''''''''''''''''''''''''''''''''''''''
-    '''             CHECKERS                 '''
-    ''''''''''''''''''''''''''''''''''''''''''''
+    """""" """""" """""" """""" """""" """""" """""" ""
+    """             CHECKERS                 """
+    """""" """""" """""" """""" """""" """""" """""" ""
+
     def being_attacked(self):
         if self.opponent is None:
             return False
-        elif self.next_to_opponent() and (self.is_facing_opponent() or self.opponent_is_facing_back()) and self.opponent.action_is(self.ATTACK):
+        elif (
+            self.next_to_opponent()
+            and (self.is_facing_opponent() or self.opponent_is_facing_back())
+            and self.opponent.action_is(self.ATTACK)
+        ):
             return True
 
     def is_facing_opponent(self):
@@ -179,7 +188,11 @@ class Fighter:
 
     def has_received_combo(self):
         if self.opponent:
-            if self.next_to_opponent() and self.opponent.action_is(self.ATTACK) and self.opponent.end_of_animation():
+            if (
+                self.next_to_opponent()
+                and self.opponent.action_is(self.ATTACK)
+                and self.opponent.end_of_animation()
+            ):
                 return True
         return False
 
@@ -213,15 +226,20 @@ class Fighter:
 
     def too_close_to_opponent(self):
         if self.opponent:
-            return abs(self.opponent.pos()[0] - self.pos()[0]) < self.TOO_CLOSE_THRESHOLD
+            return (
+                abs(self.opponent.pos()[0] - self.pos()[0]) < self.TOO_CLOSE_THRESHOLD
+            )
         return False
 
-    ''''''''''''''''''''''''''''''''''''''''''''
-    '''           DRAW TO CANVAS             '''
-    ''''''''''''''''''''''''''''''''''''''''''''
+    """""" """""" """""" """""" """""" """""" """""" ""
+    """           DRAW TO CANVAS             """
+    """""" """""" """""" """""" """""" """""" """""" ""
+
     def draw_sprite_img(self, pos):
         self.get_sprite_img()
-        self.sprite_item = self.canvas.create_image(pos, image=self.sprite_img, anchor="s")
+        self.sprite_item = self.canvas.create_image(
+            pos, image=self.sprite_img, anchor="s"
+        )
 
     def redraw_sprite_img(self):
         self.get_sprite_img()
@@ -229,13 +247,21 @@ class Fighter:
 
     def get_sprite_img(self):
         img_no = self.sprites[self.action][self.animation_no]
-        img = Image.open(os.path.join(self.SPRITE_FOLDER, self.name, self.direction, str(img_no) + ".png"))
-        img = img.resize((int(img.width * self.resize_ratio), int(img.height * self.resize_ratio)), Image.Resampling.LANCZOS)
+        img = Image.open(
+            os.path.join(
+                self.SPRITE_FOLDER, self.name, self.direction, str(img_no) + ".png"
+            )
+        )
+        img = img.resize(
+            (int(img.width * self.resize_ratio), int(img.height * self.resize_ratio)),
+            Image.Resampling.LANCZOS,
+        )
         self.sprite_img = ImageTk.PhotoImage(img)
 
-    ''''''''''''''''''''''''''''''''''''''''''''
-    '''               MOVING                 '''
-    ''''''''''''''''''''''''''''''''''''''''''''
+    """""" """""" """""" """""" """""" """""" """""" ""
+    """               MOVING                 """
+    """""" """""" """""" """""" """""" """""" """""" ""
+
     def move(self):
         if self.action_is(self.RUN):
             if self.is_facing(self.RIGHT):
@@ -243,7 +269,9 @@ class Fighter:
             else:
                 speed = -self.speed
 
-            if (self.not_playing) or 0 < self.pos()[0] + self.CANVAS_WIDTH * speed < self.CANVAS_WIDTH:
+            if (self.not_playing) or 0 < self.pos()[
+                0
+            ] + self.CANVAS_WIDTH * speed < self.CANVAS_WIDTH:
                 self.canvas.move(self.sprite_item, self.CANVAS_WIDTH * speed, 0)
 
     def move_back(self):
@@ -269,10 +297,10 @@ class Fighter:
     def force_move(self, x):
         self.canvas.move(self.sprite_item, x, 0)
 
+    """""" """""" """""" """""" """""" """""" """""" ""
+    """         HANDLING USER INPUT          """
+    """""" """""" """""" """""" """""" """""" """""" ""
 
-    ''''''''''''''''''''''''''''''''''''''''''''
-    '''         HANDLING USER INPUT          '''
-    ''''''''''''''''''''''''''''''''''''''''''''
     # changing direction and action
     def change_state(self, direction, action):
         if self.dead:
@@ -299,13 +327,18 @@ class Fighter:
         if direction != self.REMAIN:
             self.direction = direction
             if self.direction == self.RIGHT:
-                self.canvas.move(self.sprite_item, self.CANVAS_WIDTH * self.speed * 2, 0)
+                self.canvas.move(
+                    self.sprite_item, self.CANVAS_WIDTH * self.speed * 2, 0
+                )
             else:
-                self.canvas.move(self.sprite_item, self.CANVAS_WIDTH * -self.speed * 2, 0)
+                self.canvas.move(
+                    self.sprite_item, self.CANVAS_WIDTH * -self.speed * 2, 0
+                )
 
-    ''''''''''''''''''''''''''''''''''''''''''''
-    '''       HANDLING TIME PASSING          '''
-    ''''''''''''''''''''''''''''''''''''''''''''
+    """""" """""" """""" """""" """""" """""" """""" ""
+    """       HANDLING TIME PASSING          """
+    """""" """""" """""" """""" """""" """""" """""" ""
+
     # animating the character and moving -- NEEDS REFACTOR
     def animate(self):
         if self.dead and self.end_of_action(self.FALL):
@@ -320,7 +353,11 @@ class Fighter:
             self.stance()
 
         # possibly 🍝
-        if self.animation_no > (0.3 * (len(self.sprites[self.action]))) and self.action_is(self.ATTACK) and not (self.opponent and self.opponent.action_is(self.DAMAGE)):
+        if (
+            self.animation_no > (0.3 * (len(self.sprites[self.action])))
+            and self.action_is(self.ATTACK)
+            and not (self.opponent and self.opponent.action_is(self.DAMAGE))
+        ):
             self.stance()
 
         elif self.end_of_action(self.JUMP):
@@ -351,7 +388,7 @@ class Fighter:
         self.status_bar.update_health()
         if self.health <= 0:
             self.die()
-        elif self.health/self.MAX_HEALTH < 0.4:
+        elif self.health / self.MAX_HEALTH < 0.4:
             self.status_bar.update_chakra()
 
     def move_into_hit_box(self):
@@ -360,31 +397,36 @@ class Fighter:
 
         if self.too_close_to_opponent():
             if self.direction == self.RIGHT:
-                self.canvas.move(self.sprite_item, self.CANVAS_WIDTH * -self.speed * 2, 0)
+                self.canvas.move(
+                    self.sprite_item, self.CANVAS_WIDTH * -self.speed * 2, 0
+                )
             else:
-                self.canvas.move(self.sprite_item, self.CANVAS_WIDTH * self.speed * 2, 0)
+                self.canvas.move(
+                    self.sprite_item, self.CANVAS_WIDTH * self.speed * 2, 0
+                )
 
     def destroy(self):
         self.canvas.delete(self.sprite_item)
         self.status_bar.destroy()
 
+
 # should inherit some parent animatable item class that has an is_active method or something
-class SubstitutionJutsu():
+class SubstitutionJutsu:
     def __init__(self, canvas, player, opponent):
         self.canvas = canvas
         self.player = player
         self.opponent = opponent
         self.active = True
 
-        self.stage = 0 # 0 for dissapear, 1 for appear
+        self.stage = 0  # 0 for dissapear, 1 for appear
         self.i = 0
 
         img = Image.open(self.get_img_path(self.i))
         self.img = ImageTk.PhotoImage(img)
         self.item = self.canvas.create_image(player.pos(), image=self.img, anchor="s")
-    
+
     def get_img_path(self, i):
-        return rf'sprites\common\teleport\{i}.png'
+        return rf"sprites\common\teleport\{i}.png"
 
     def animate(self):
         self.img = ImageTk.PhotoImage(Image.open(self.get_img_path(self.i)))
@@ -395,7 +437,7 @@ class SubstitutionJutsu():
         x = 100 if self.opponent.pos()[0] > canvas_width / 2 else canvas_width - 100
 
         if self.i == 1 and self.stage == 0:
-            self.player.force_move(-canvas_width*2)
+            self.player.force_move(-canvas_width * 2)
         elif self.i > 5 and self.stage == 0:
             self.stage = 1
             self.i = 0
