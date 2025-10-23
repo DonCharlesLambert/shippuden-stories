@@ -53,6 +53,7 @@ class TestBot(unittest.TestCase):
         self.bot.action_is = MagicMock(return_value=False)
         self.bot.action_is.side_effect = lambda action: False
         self.mock_opponent.action_is.side_effect = lambda x: x == self.bot.FALL
+        self.mock_opponent.dead = False
         with patch.object(self.bot, "away", wraps=self.bot.away) as away:
             self.bot.decide_movement()
             away.assert_called_once()
@@ -69,6 +70,7 @@ class TestBot(unittest.TestCase):
         self.bot.next_to_opponent = MagicMock(return_value=False)
         self.bot.next_to_opponent.return_value = True
         self.bot.decide_to_attack = MagicMock()
+        self.mock_opponent.dead = False
         with patch.object(
             self.bot, "decide_to_attack", wraps=self.bot.decide_to_attack
         ) as decide_to_attack:
