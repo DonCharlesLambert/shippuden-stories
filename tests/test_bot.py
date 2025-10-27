@@ -49,6 +49,40 @@ class TestBot(unittest.TestCase):
         except Exception:
             pass
 
+    def test_animate(self):
+        with patch.object(
+            self.bot, "decide_movement", wraps=self.bot.decide_movement
+        ) as decide_movement:
+            self.bot.animate()
+            decide_movement.assert_called_once()
+
+    def test_inaction_in_damage(self):
+        self.bot.action_is = MagicMock(return_value=False)
+        self.bot.action_is.side_effect = lambda action: action == self.bot.DAMAGE
+        self.mock_opponent.action_is.side_effect = lambda x: x == self.bot.ATTACK
+        self.mock_opponent.dead = False
+        with patch.object(self.bot, "away", wraps=self.bot.away) as away:
+            self.bot.decide_movement()
+            away.assert_not_called()
+
+    def test_cancel_useless_attack(self):
+        self.bot.action_is = MagicMock(return_value=False)
+        self.bot.action_is.side_effect = lambda action: action == self.bot.ATTACK
+        self.mock_opponent.action_is.side_effect = lambda x: x == self.bot.STANCE
+        self.mock_opponent.dead = False
+        with patch.object(self.bot, "stance", wraps=self.bot.stance) as stance:
+            self.bot.decide_movement()
+            stance.assert_called_once()
+
+    def test_continue_useful_attack(self):
+        self.bot.action_is = MagicMock(return_value=False)
+        self.bot.action_is.side_effect = lambda action: action == self.bot.ATTACK
+        self.mock_opponent.action_is.side_effect = lambda x: x == self.bot.DAMAGE
+        self.mock_opponent.dead = False
+        with patch.object(self.bot, "stance", wraps=self.bot.stance) as stance:
+            self.bot.decide_movement()
+            stance.assert_not_called()
+
     def test_decide_movement_opponent_fallen(self):
         self.bot.action_is = MagicMock(return_value=False)
         self.bot.action_is.side_effect = lambda action: False

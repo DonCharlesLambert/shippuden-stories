@@ -53,7 +53,7 @@ class Bot(Fighter):
             self.stance()
 
     def run_to_opponent(self):
-        if self.opponent.pos()[0] < self.pos()[0]:
+        if self.opponent and self.opponent.pos()[0] < self.pos()[0]:
             self.left()
         else:
             self.right()
