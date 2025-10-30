@@ -80,7 +80,7 @@ class TestFighter(unittest.TestCase):
         self.assertGreater(self.fighter.pos()[0], 100)
 
     def test_jump(self):
-        # XXX - Test this properly
+        # XXX - Test this properly by checking pos
         self.fighter.jump()
         for i in range(15):
             self.fighter.animate()
