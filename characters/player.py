@@ -426,7 +426,7 @@ class SubstitutionJutsu:
         self.item = self.canvas.create_image(player.pos(), image=self.img, anchor="s")
 
     def get_img_path(self, i):
-        return rf"sprites\common\teleport\{i}.png"
+        return os.path.join("sprites", "common", "teleport", f"{i}.png")
 
     def animate(self):
         self.img = ImageTk.PhotoImage(Image.open(self.get_img_path(self.i)))
