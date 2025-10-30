@@ -60,6 +60,31 @@ class TestFighter(unittest.TestCase):
             self.assertGreater(1, self.fighter.health)
             die.assert_called_once()
 
+    def test_too_close(self):
+        self.fighter.force_move(100)
+        self.mock_opponent.pos.return_value = (100, 0)
+        self.assertEqual(self.fighter.too_close_to_opponent(), True)
+        self.fighter.force_move(100)
+        self.mock_opponent.pos.return_value = (400, 0)
+        self.assertEqual(self.fighter.too_close_to_opponent(), False)
+
+    def test_move_into_hitbox(self):
+        self.mock_opponent.direction = self.fighter.RIGHT
+        self.fighter.direction = self.fighter.RIGHT
+        self.fighter.move_into_hit_box()
+        self.assertEqual(self.fighter.direction, self.fighter.LEFT)
+
+        self.fighter.force_move(100)
+        self.mock_opponent.pos.return_value = (100, 0)
+        self.fighter.move_into_hit_box()
+        self.assertGreater(self.fighter.pos()[0], 100)
+
+    def test_jump(self):
+        # XXX - Test this properly
+        self.fighter.jump()
+        for i in range(15):
+            self.fighter.animate()
+
 
 if __name__ == "__main__":
     unittest.main()
